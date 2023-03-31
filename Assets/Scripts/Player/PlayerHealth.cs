@@ -9,16 +9,16 @@ public class PlayerHealth : MonoBehaviour
     public Slider healthSlider;
     public Image damageImage;
     public AudioClip deathClip;
-    public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+    public float flashSpeed = 5f;       // Kecepatan DamageImage flash ke layar
+    public Color flashColour = new Color(1f, 0f, 0f, 0.1f); // Warna flash
 
 
     Animator anim;
     AudioSource playerAudio;
     PlayerMovement playerMovement;
     //PlayerShooting playerShooting;
-    bool isDead;                                                
-    bool damaged;                                               
+    bool isDead;
+    bool damaged;    
 
 
     void Awake()
@@ -31,22 +31,24 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = startingHealth;
     }
 
-
+    // If damage taken, set damageImage to flash colour
     void Update()
     {
         if (damaged)
         {
+            // Ubah menjadi merah
             damageImage.color = flashColour;
         }
         else
         {
+            // Fade damage image menjadi transparan
             damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
         }
 
         damaged = false;
     }
 
-
+    // Method yang dipanggil jika musuh menyerang player
     public void TakeDamage(int amount)
     {
         damaged = true;
@@ -63,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-
+    // Jika player mati
     void Death()
     {
         isDead = true;

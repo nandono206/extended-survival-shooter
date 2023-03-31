@@ -23,14 +23,17 @@ public class EnemyAttack : MonoBehaviour
         anim = GetComponent <Animator> ();
     }
 
+    // Jika sesuatu collide dengan enemy
     void OnTriggerEnter (Collider other)
     {
+        // Jika player, playerinrange true
         if(other.gameObject == player && other.isTrigger == false)
         {
             playerInRange = true;
         }
     }
 
+    // Kebalikan OnTriggerEnter
     void OnTriggerExit (Collider other)
     {
         if(other.gameObject == player)

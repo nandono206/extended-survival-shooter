@@ -29,11 +29,7 @@ public class PlayerMovement : MonoBehaviour
         Animating(h, v);
     }
 
-    /// <summary>
-    /// Method player sehingga dapat berjalan
-    /// </summary>
-    /// <param name="h">Nilai horizontal</param>
-    /// <param name="v">Nilai vertical</param>
+    // Method player sehingga dapat berjalan
     void Move(float h, float v) {
         // Set nilai x dan z
         movement.Set(h, 0f, v);
@@ -45,9 +41,7 @@ public class PlayerMovement : MonoBehaviour
         playerRigidbody.MovePosition(transform.position + movement);
     }
 
-    /// <summary>
-    /// Method player sehingga player dapat menghadap kursor
-    /// </summary>
+    // Method player sehingga player dapat menghadap kursor
     void Turning() {
         // Buat Ray dari mouse position ke layar
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -67,9 +61,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Method untuk scripting animasi player
-    /// </summary>
+    // Method untuk scripting animasi player
     void Animating(float h, float v) {
         bool walking = h != 0f || v != 0f;
         anim.SetBool("IsWalking", walking);
