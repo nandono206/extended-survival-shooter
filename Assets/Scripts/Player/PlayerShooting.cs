@@ -29,6 +29,7 @@ public class PlayerShooting : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+        // Fire1: left ctrl/mouse 0
         if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
         {
             Shoot();
@@ -58,7 +59,7 @@ public class PlayerShooting : MonoBehaviour
         gunParticles.Play();
 
         gunLine.enabled = true;
-        gunLine.SetPosition(0, transform.position);
+        gunLine.SetPosition(0, transform.position); // Start position
 
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
