@@ -12,9 +12,9 @@ public class PlayerShooting : MonoBehaviour
     public float spreadAngle = 50f;
     public int numOfShotgunBullets = 8;
     // booleans for if the weapon has been bought
-    public bool isShotgunAvailable = false;
-    public bool isSwordAvailable = false;
-    public bool isBowAvailable = false;
+    public static bool isShotgunAvailable = false;
+    public static bool isSwordAvailable = false;
+    public static bool isBowAvailable = false;
     public bool areOtherWeaponsActive = false;
     public GameObject arrowPrefab;
 
