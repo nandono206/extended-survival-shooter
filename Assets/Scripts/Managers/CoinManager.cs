@@ -7,11 +7,10 @@ public class CoinManager : MonoBehaviour
 {
     public static int coins;
 
-    TMP_Text playerCoins;
+    public TMP_Text playerCoins;
 
     void Awake()
     {
-        playerCoins = GetComponent <TMP_Text> ();
         coins = 0;   
     }
 
