@@ -28,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        anim = GameObject.Find("Alice").GetComponent<Animator>(); ;
         playerAudio = GetComponent<AudioSource>();
         playerMovement = GetComponent<PlayerMovement>();
         playerShooting = GetComponentInChildren<PlayerShooting>();
@@ -103,6 +103,18 @@ public class PlayerHealth : MonoBehaviour
 
         playerShooting.DisableEffects();
 
+        GameObject gun = GameObject.Find("Gun");
+        if (gun != null)
+            gun.SetActive(false);
+        GameObject shotgun = GameObject.Find("Shotgun");
+        if (shotgun != null)
+            shotgun.SetActive(false);
+        GameObject sword = GameObject.Find("Sword");
+        if (sword != null)
+            sword.SetActive(false);
+        GameObject bow = GameObject.Find("Bow");
+        if (bow != null)
+            bow.SetActive(false);
         anim.SetTrigger("Die");
 
         playerAudio.clip = deathClip;

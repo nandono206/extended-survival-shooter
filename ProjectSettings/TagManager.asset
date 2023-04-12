@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Bear
   - Spawner
+  - Weapon
   layers:
   - Default
   - TransparentFX

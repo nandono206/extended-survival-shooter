@@ -2,6 +2,7 @@
 
 public class EnemyHealth : MonoBehaviour
 {
+    public string enemyName;
     public int startingHealth = 100;
     public int currentHealth;
     public float sinkSpeed = 2.5f;  // Sink through the floor (so it doesn't magically dissapear)
@@ -80,6 +81,7 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<Rigidbody> ().isKinematic = true;
         isSinking = true;
         ScoreManager.score += scoreValue;
+        QuestManager.AddEnemyKilled(enemyName);
         Destroy (gameObject, 2f);
     }
 }
