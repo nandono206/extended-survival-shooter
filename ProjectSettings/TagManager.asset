@@ -4,6 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Fox
+  - Dragon
+  - Enemy
+  - Bear
+  - Spawner
   - Weapon
   layers:
   - Default

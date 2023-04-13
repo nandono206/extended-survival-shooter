@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : MonoBehaviour, PetObserver
 {
     public float timeBetweenAttacks = 0.5f;
     public int attackDamage = 10;
@@ -9,11 +9,20 @@ public class EnemyAttack : MonoBehaviour
 
     Animator anim;
     GameObject player;
+    
+    GameObject pet;
+    GameObject spawener;
+    FoxHealthBar petHealth;
     PlayerHealth playerHealth;
+  
+
     EnemyHealth enemyHealth;
+   
     bool playerInRange;
+    bool petInRange;
     float timer;
 
+    [SerializeField] PetSubject petSubject;
 
     void Awake ()
     {
@@ -21,7 +30,16 @@ public class EnemyAttack : MonoBehaviour
         playerHealth = player.GetComponent <PlayerHealth> ();
         enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent <Animator> ();
+        spawener = GameObject.FindGameObjectWithTag("Spawner");
+        petSubject = spawener.GetComponent <Spawner> ();
+        if ( petSubject != null )
+        {
+            
+            petSubject.AddObserver(this);
+          
+        }
     }
+
 
     // Jika sesuatu collide dengan enemy
     void OnTriggerEnter (Collider other)
@@ -30,6 +48,12 @@ public class EnemyAttack : MonoBehaviour
         if(other.gameObject == player && other.isTrigger == false)
         {
             playerInRange = true;
+        }
+        
+        
+        if (other.gameObject == pet && other.isTrigger == false)
+        {
+            petInRange = true;
         }
     }
 
@@ -40,6 +64,14 @@ public class EnemyAttack : MonoBehaviour
         {
             playerInRange = false;
         }
+
+        
+
+        if (other.gameObject == pet)
+        {
+            petInRange = false;
+        }
+
     }
 
 
@@ -49,13 +81,32 @@ public class EnemyAttack : MonoBehaviour
 
         if(timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
         {
-            Attack ();
+        
+            //Attack ();
         }
 
+        if (timer >= timeBetweenAttacks && enemyHealth.currentHealth > 0 && petInRange)
+        {
+          
+            AttackPet ();
+        }
+       
         if (playerHealth.currentHealth <= 0)
         {
             anim.SetTrigger ("PlayerDead");
         }
+    }
+
+    public void OnNotify(string petTag)
+    {
+     
+        pet = GameObject.FindGameObjectWithTag(petTag);
+       
+    }
+
+    public void OnNotifyDead()
+    {
+        pet = null;
     }
 
 
@@ -65,7 +116,47 @@ public class EnemyAttack : MonoBehaviour
 
         if (playerHealth.currentHealth > 0)
         {
+           
             playerHealth.TakeDamage (attackDamage);
         }
     }
+    
+    void AttackPet()
+    {
+        timer = 0f;
+
+        if(pet != null)
+        {
+            if (pet.GetComponent<PetController>().Health > 0)
+            {
+                //Debug.Log("AttackingPet " + pet.tag);
+                pet.GetComponent<PetController>().OnTakeDamage (attackDamage);
+            }
+        }
+    }
+
+    //void AttackFox()
+    //{
+    //    timer = 0f;
+
+    //    if (foxHealth.currentHealth > 0)
+    //    {
+    //        Debug.Log("AttackFox");
+    //        foxHealth.TakeDamage(attackDamage);
+    //    }
+    //}
+    //void AttackDragon()
+    //{
+    //    timer = 0f;
+
+    //    if (dragonHealth.currentHealth > 0)
+    //    {
+            
+    //        dragonHealth.TakeDamage(attackDamage);
+    //    }
+    //}
+
+
+
+
 }

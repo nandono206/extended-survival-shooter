@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerShooting : MonoBehaviour
+public class PlayerShooting : MonoBehaviour, PetObserver
 {
     public int damagePerGunShot = 20;
     public int damagePerShotgunShot = 10;
@@ -18,19 +20,24 @@ public class PlayerShooting : MonoBehaviour
     public bool areOtherWeaponsActive = false;
     public GameObject arrowPrefab;
 
+    float timer;                                    
+    Ray shootRay;                                   
+    RaycastHit shootHit;                            
+    int shootableMask;
+    GameObject pet;
+    ParticleSystem gunParticles;                    
+    LineRenderer gunLine;                           
+    AudioSource gunAudio;
+    GameObject spawener;
+    PetSubject petSubject;
+    Light gunLight;                                 
+    float effectsDisplayTime = 0.2f;                
     int activeWeapon = 0;
-    float timer;
     bool isBowCharging = false;
     float currentBowPower = 0f;
-    Ray shootRay;
-    RaycastHit shootHit;
-    int shootableMask;
-    ParticleSystem gunParticles;
-    LineRenderer gunLine;
+
     LineRenderer[] gunLines;
-    AudioSource gunAudio;
-    Light gunLight;
-    float effectsDisplayTime = 0.2f;
+
     GameObject gun;
     GameObject shotgun;
     GameObject sword;
@@ -43,6 +50,7 @@ public class PlayerShooting : MonoBehaviour
     void Awake()
     {
         shootableMask = LayerMask.GetMask("Shootable");
+    
         gunParticles = GetComponent<ParticleSystem>();
         gunLine = GetComponent<LineRenderer>();
         gunAudio = GetComponent<AudioSource>();
@@ -60,11 +68,52 @@ public class PlayerShooting : MonoBehaviour
         bowBar = GameObject.Find("BowBar");
         bowChargeBar.transform.localScale = new Vector3(0, 1, 1);
         bowBar.SetActive(false);
+
+        spawener = GameObject.FindGameObjectWithTag("Spawner");
+        petSubject = spawener.GetComponent<Spawner>();
+        if (petSubject != null)
+        {
+
+            petSubject.AddObserver(this);
+
+        }
+    }
+
+    public void OnNotify(string petTag)
+    {
+
+        pet = GameObject.FindGameObjectWithTag(petTag);
+
+    }
+
+    public void OnNotifyDead()
+    {
+        //Debug.Log("dragon dead");
+        pet = null;
+        
     }
 
     void Update()
     {
         timer += Time.deltaTime;
+        if (pet != null && pet.CompareTag("Dragon"))
+        {
+            //Debug.Log("Dragon Exists");
+            damagePerGunShot = 40;
+            damagePerShotgunShot = 20;
+            damagePerSwordHit = 90;
+
+            gunLine.material.color = Color.red;
+        }
+
+        else 
+        {
+            //Debug.Log("Dragon Exists");
+            damagePerGunShot = 20;
+            damagePerShotgunShot = 10;
+            damagePerSwordHit = 50;
+            gunLine.material.color = Color.yellow;
+        }
 
         // Fire1: left ctrl/mouse 0
         if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
@@ -181,6 +230,7 @@ public class PlayerShooting : MonoBehaviour
 
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
+        
 
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
         {

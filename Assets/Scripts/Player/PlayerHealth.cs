@@ -11,6 +11,9 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip deathClip;
     public float flashSpeed = 5f;       // Kecepatan DamageImage flash ke layar
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f); // Warna flash
+    public float healFlashSpeed = 5f;
+    public Color healFlashColor = new Color(0f, 1f, 0f, 0.1f);
+    public Image healImage;
 
 
     Animator anim;
@@ -19,6 +22,8 @@ public class PlayerHealth : MonoBehaviour
     PlayerShooting playerShooting;
     bool isDead;
     bool damaged;
+    bool isHealingfromPet;
+    
 
 
     void Awake()
@@ -45,6 +50,16 @@ public class PlayerHealth : MonoBehaviour
             damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
         }
 
+        if (isHealingfromPet)
+        {
+            healImage.color = healFlashColor;
+        }
+        else
+        {
+            healImage.color = Color.Lerp(healImage.color, Color.clear, healFlashSpeed * Time.deltaTime);
+        }
+
+        isHealingfromPet = false;
         damaged = false;
     }
 
@@ -54,6 +69,22 @@ public class PlayerHealth : MonoBehaviour
         damaged = true;
 
         currentHealth -= amount;
+
+        healthSlider.value = currentHealth;
+
+        playerAudio.Play();
+
+        if (currentHealth <= 0 && !isDead)
+        {
+            Death();
+        }
+    }
+
+    public void HealFromPet()
+    {
+        isHealingfromPet = true;
+
+        currentHealth += 5;
 
         healthSlider.value = currentHealth;
 
