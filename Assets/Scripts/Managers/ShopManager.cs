@@ -25,6 +25,8 @@ public class ShopManager : MonoBehaviour
     bool shopShown = false;
     float itemWidth;
 
+    public static bool isShopAvailable = true;
+
     void Awake()
     {
         // Peroleh game object dengan tag "Player"
@@ -125,7 +127,7 @@ public class ShopManager : MonoBehaviour
     void Update()
     {
         // Jika playerInRange, buka toko
-        if (playerInRange && playerHealth.currentHealth > 0) 
+        if (playerInRange && playerHealth.currentHealth > 0 && isShopAvailable) 
         {
             if (!shopShown)
             {

@@ -93,6 +93,7 @@ public class QuestManager : MonoBehaviour
         // Start next quest
         if (isPreviousQuestCompleted && !questRewardShown)
         {
+            ScoreManager.isTimePaused = true;
             CoinManager.coins += currentActiveQuest.coinReward;
             
             // Show quest rewards UI
@@ -135,6 +136,9 @@ public class QuestManager : MonoBehaviour
 
     void GenerateQuest()
     {
+        // Start timer score
+        ScoreManager.isTimePaused = false;
+
         // Set enemies maximum spawn number, number of spawned, and number of killed
         currentZombearSpawnNumber = currentActiveQuest.zombearSpawnNumber;
         currentZombunnySpawnNumber = currentActiveQuest.zombunnySpawnNumber;

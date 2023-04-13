@@ -5,7 +5,7 @@ using System.Collections;
 public class ScoreManager : MonoBehaviour
 {
     public static float score;
-    public static bool isTimePaused = false;
+    public static bool isTimePaused = true;
 
 
     Text text;
