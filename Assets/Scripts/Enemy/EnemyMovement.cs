@@ -42,6 +42,27 @@ public class EnemyMovement : MonoBehaviour, PetObserver
 
     void Update ()
     {
+        if (pet == null)
+        {
+            pet = GameObject.FindGameObjectWithTag("Fox");
+            if (pet != null)
+            {
+                return;
+            }
+
+            pet = GameObject.FindGameObjectWithTag("Dragon");
+            if (pet != null)
+            {
+                return;
+            }
+
+            pet = GameObject.FindGameObjectWithTag("Bear");
+            if (pet != null)
+            {
+                return;
+            }
+        }
+        
         // Memindahkan posisi enemy
         
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
