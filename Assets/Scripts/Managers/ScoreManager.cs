@@ -4,7 +4,8 @@ using System.Collections;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static int score;
+    public static float score;
+    public static bool isTimePaused = false;
 
 
     Text text;
@@ -19,6 +20,14 @@ public class ScoreManager : MonoBehaviour
 
     void Update ()
     {
-        text.text = "Score: " + score;
+        if (!isTimePaused)
+        {
+            score += Time.deltaTime;
+        }
+ 
+        string minutes = Mathf.Floor(score / 60).ToString("00");
+        string seconds = (score % 60).ToString("00");
+        
+        text.text = string.Format("{0}:{1}", minutes, seconds);
     }
 }
