@@ -378,7 +378,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2561714290881457725}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.22666667}
+  m_LocalPosition: {x: 0, y: 0, z: -0.208}
   m_LocalScale: {x: 1.3333334, y: 1.3333334, z: 1.3333334}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -388,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 821.8114, y: 367.33334}
+  m_AnchoredPosition: {x: 819.5668, y: 368.877}
   m_SizeDelta: {x: 1232, y: 552}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &215863178639740974
@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 2041291444835023157}
   m_Layer: 0
   m_Name: Bear
-  m_TagString: Untagged
+  m_TagString: Bear
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -692,7 +692,7 @@ Animator:
   m_GameObject: {fileID: 3419710380935876408}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b7822eb5951163b48830b6d9bcbf48b4, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6b74c0471f91af34f8e98a4d46810410, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3bb63dc48540e4d429922bde48b9feda, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
-  HealthBar: {fileID: 0}
+  HealthBar: {fileID: 8166255207908407796}
   isImmortal: 0
 --- !u!54 &3958131381420783540
 Rigidbody:
@@ -1314,8 +1314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f412d8817f38e847922236673eec032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  Offset: {x: 0, y: 1, z: 0}
+  Target: {fileID: 2611684080585430402}
+  Offset: {x: 0, y: 1.5, z: 0}
 --- !u!114 &6129461826249536417
 MonoBehaviour:
   m_ObjectHideFlags: 0

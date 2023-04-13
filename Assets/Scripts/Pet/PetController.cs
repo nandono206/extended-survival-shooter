@@ -31,7 +31,7 @@ public class PetController : PetSubject, IDamageable
         if (!isImmortal)
         {
             Health -= Damage;
-            Debug.Log(Health);
+            //Debug.Log(Health);
             HealthBar.SetProgress(Health / MaxHealth, 3);
 
             if (Health <= 0)
@@ -46,6 +46,7 @@ public class PetController : PetSubject, IDamageable
 
     public void fullHpCheat()
     {
+        //Debug.Log(isImmortal);
         isImmortal = !isImmortal;
     }
 

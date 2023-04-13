@@ -14,10 +14,10 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     public float spreadAngle = 50f;
     public int numOfShotgunBullets = 8;
     // booleans for if the weapon has been bought
-    public static bool isShotgunAvailable = false;
-    public static bool isSwordAvailable = false;
-    public static bool isBowAvailable = false;
-    public bool areOtherWeaponsActive = false;
+    public static bool isShotgunAvailable = true;
+    public static bool isSwordAvailable = true;
+    public static bool isBowAvailable = true;
+    public bool areOtherWeaponsActive = true;
     public GameObject arrowPrefab;
 
     float timer;                                    
@@ -83,6 +83,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     {
 
         pet = GameObject.FindGameObjectWithTag(petTag);
+        Debug.Log(petTag);
 
     }
 
@@ -96,7 +97,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     void Update()
     {
         timer += Time.deltaTime;
-        if (pet != null && pet.CompareTag("Dragon"))
+        if (pet != null && pet.CompareTag("Bear"))
         {
             //Debug.Log("Dragon Exists");
             damagePerGunShot = 40;
