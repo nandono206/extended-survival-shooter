@@ -177,7 +177,6 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
         GetComponent<Rigidbody> ().isKinematic = true;
         isSinking = true;
-        ScoreManager.score += scoreValue;
         QuestManager.AddEnemyKilled(enemyName);
         Debug.Log("SINK");
         Destroy (gameObject, 2f);

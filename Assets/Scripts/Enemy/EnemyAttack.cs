@@ -77,12 +77,34 @@ public class EnemyAttack : MonoBehaviour, PetObserver
 
     void Update ()
     {
+        Debug.Log(petInRange);
+        if (pet == null)
+        {
+            pet = GameObject.FindGameObjectWithTag("Fox");
+            if (pet != null)
+            {
+                return;
+            }
+
+            pet = GameObject.FindGameObjectWithTag("Dragon");
+            if (pet != null)
+            {
+                return;
+            }
+
+            pet = GameObject.FindGameObjectWithTag("Bear");
+            if (pet != null)
+            {
+                return;
+            }
+        }
+
         timer += Time.deltaTime;
 
         if(timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
         {
         
-            //Attack ();
+            Attack ();
         }
 
         if (timer >= timeBetweenAttacks && enemyHealth.currentHealth > 0 && petInRange)
@@ -107,6 +129,7 @@ public class EnemyAttack : MonoBehaviour, PetObserver
     public void OnNotifyDead()
     {
         pet = null;
+        petInRange = false;
     }
 
 
