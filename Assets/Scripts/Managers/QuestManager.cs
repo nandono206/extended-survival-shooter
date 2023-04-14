@@ -63,6 +63,7 @@ public class QuestManager : MonoBehaviour
         {
             HideQuestRewardUI();
 
+            ShopManager.isShopAvailable = true;
             questRewardShown = false;
             nextQuestShown = true;
 
@@ -116,7 +117,6 @@ public class QuestManager : MonoBehaviour
         if (isPreviousQuestCompleted && !questRewardShown)
         {
             ScoreManager.isTimePaused = true;
-            ShopManager.isShopAvailable = true;
             CoinManager.coins += currentActiveQuest.coinReward;
             
             // Show quest rewards UI
@@ -134,6 +134,7 @@ public class QuestManager : MonoBehaviour
         {
             HideQuestRewardUI();
 
+            ShopManager.isShopAvailable = true;
             questRewardShown = false;
             nextQuestShown = true;
 

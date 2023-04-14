@@ -26,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     bool damaged;
     bool isHealingfromPet;
     
+    bool isImmortal = false;
 
 
     void Awake()
@@ -68,6 +69,11 @@ public class PlayerHealth : MonoBehaviour
     // Method yang dipanggil jika musuh menyerang player
     public void TakeDamage(int amount)
     {
+        if (isImmortal)
+        {
+            return;
+        }
+
         damaged = true;
 
         currentHealth -= amount;
@@ -126,5 +132,10 @@ public class PlayerHealth : MonoBehaviour
 
         playerMovement.enabled = false;
         playerShooting.enabled = false;
+    }
+
+    public void immortalCheat()
+    {
+        isImmortal = !isImmortal;
     }
 }
