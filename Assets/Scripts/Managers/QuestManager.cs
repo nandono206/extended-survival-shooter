@@ -72,6 +72,8 @@ public class QuestManager : MonoBehaviour
             if (currentQuestIdx >= questList.Count)
             {
                 Debug.Log("Final boss is defeated!");
+                SaveToScoreboard();
+
                 return;
             }
 
@@ -151,6 +153,8 @@ public class QuestManager : MonoBehaviour
             if (currentQuestIdx >= questList.Count)
             {
                 Debug.Log("Final boss is defeated!");
+                SaveToScoreboard();
+
                 return;
             }
 
@@ -297,5 +301,11 @@ public class QuestManager : MonoBehaviour
         Instantiate(hellephant, hellephantSpawnPoints[spawnPointIndex].position, hellephantSpawnPoints[spawnPointIndex].rotation);
 
         currentHellephantSpawned += 1;
+    }
+
+    void SaveToScoreboard()
+    {
+        ScoreboardManager.AddScore(new Scoreboard(PlayerName.GetName(), ScoreManager.score));
+        ScoreboardManager.SaveScoreboard();
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerName : MonoBehaviour
 {
-    public string nameOfPlayer;
+    public static string nameOfPlayer;
     public string saveName;
 
     public TMPro.TextMeshProUGUI inputText;
@@ -18,13 +18,18 @@ public class PlayerName : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SetName();
         nameOfPlayer = PlayerPrefs.GetString("name", "none");
-
     }
     
     public void SetName()
     {
         saveName = inputText.text;
         PlayerPrefs.SetString("name", saveName);
+    }
+
+    public static string GetName()
+    {
+        return nameOfPlayer;
     }
 }
