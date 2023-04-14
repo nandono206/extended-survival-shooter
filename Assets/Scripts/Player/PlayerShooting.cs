@@ -10,6 +10,9 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     public float maxBowPower = 100f;
     public float bowChargeRate = 10f;
     public float timeBetweenBullets = 0.15f;
+    public float timeBetweenShotgun = 0.3f;
+    public float timeBetweenSword = 0.5f;
+    public float timeBetweenBow = 0.4f;
     public float range = 100f;
     public float spreadAngle = 50f;
     public int numOfShotgunBullets = 8;
@@ -27,7 +30,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     GameObject pet;
     ParticleSystem gunParticles;
     LineRenderer gunLine;
-    AudioSource gunAudio;
+    AudioSource[] audios;
     GameObject spawener;
     PetSubject petSubject;
     Light gunLight;
@@ -55,7 +58,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
         gunParticles = GetComponent<ParticleSystem>();
         gunLine = GetComponent<LineRenderer>();
-        gunAudio = GetComponent<AudioSource>();
+        audios = GetComponents<AudioSource>();
         gunLight = GetComponent<Light>();
         gun = GameObject.Find("Gun");
         shotgun = GameObject.Find("Shotgun");
@@ -119,7 +122,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
         }
 
         // Fire1: left ctrl/mouse 0
-        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
+        if (Input.GetButton("Fire1"))
         {
             Shoot();
         }
@@ -133,6 +136,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
         if (Input.GetButtonUp("Fire1") && isBowCharging)
         {
+            audios[2].Play();
             ShootBow();
             bowChargeBar.transform.localScale = new Vector3(0, 1, 1);
         }
@@ -157,15 +161,21 @@ public class PlayerShooting : MonoBehaviour, PetObserver
         {
             if (scroll > 0)
             {
-                activeWeapon--;
-                if (activeWeapon < 0)
-                    activeWeapon = 3;
+                do
+                {
+                    activeWeapon--;
+                    if (activeWeapon < 0)
+                        activeWeapon = weaponAvailable.Length - 1;
+                } while (!weaponAvailable[activeWeapon]);
             }
             else
             {
-                activeWeapon++;
-                if (activeWeapon > 3)
-                    activeWeapon = 0;
+                do
+                {
+                    activeWeapon++;
+                    if (activeWeapon > weaponAvailable.Length - 1)
+                        activeWeapon = 0;
+                } while (!weaponAvailable[activeWeapon]);
             }
         }
 
@@ -197,32 +207,36 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
     void Shoot()
     {
-        timer = 0f;
-        if (activeWeapon == 0 || activeWeapon == 1)
+        if ((activeWeapon == 0 && timer >= timeBetweenBullets) || (activeWeapon == 1 && timer >= timeBetweenShotgun))
         {
-            gunAudio.Play();
+            audios[0].Play();
 
             gunLight.enabled = true;
 
             gunParticles.Stop();
             gunParticles.Play();
 
-            if (activeWeapon == 0)
+            if (activeWeapon == 0 && timer >= timeBetweenBullets)
             {
                 ShootGun();
+                timer = 0f;
             }
-            else if (activeWeapon == 1)
+            else if (activeWeapon == 1 && timer >= timeBetweenShotgun)
             {
                 ShootShotgun();
+                timer = 0f;
             }
         }
-        else if (activeWeapon == 2)
+        else if (activeWeapon == 2 && timer >= timeBetweenSword)
         {
+            audios[1].Play();
             SwingSword();
+            timer = 0f;
         }
-        else if (activeWeapon == 3)
+        else if (activeWeapon == 3 && timer >= timeBetweenBow)
         {
             isBowCharging = true;
+            timer = 0f;
         }
     }
 
