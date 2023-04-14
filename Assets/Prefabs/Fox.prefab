@@ -1563,7 +1563,6 @@ GameObject:
   - component: {fileID: 5018546976177549543}
   - component: {fileID: 5018546976177549560}
   - component: {fileID: 5018546976177549566}
-  - component: {fileID: 5018546976177549567}
   - component: {fileID: 5193057449097177774}
   m_Layer: 0
   m_Name: Fox
@@ -1789,21 +1788,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18484994fd16014293021ee9eb9dfd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5018546976177549567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8243859195564336883}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1baca24e82f3ea14094a7b12a6f0f227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 100
-  currentHealth: 0
-  foxHealthSlider: {fileID: 7602400863055779768, guid: 5170c91478655c741b1d1f052cc8e59c, type: 3}
 --- !u!114 &5193057449097177774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1818,6 +1802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   HealthBar: {fileID: 4024246312578883253}
+  isImmortal: 0
 --- !u!1 &8257265480385682879
 GameObject:
   m_ObjectHideFlags: 0

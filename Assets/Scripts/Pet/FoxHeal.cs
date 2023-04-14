@@ -9,23 +9,23 @@ public class FoxHeal : MonoBehaviour
     GameObject player;
     PlayerHealth playerHealth;
 
-    bool playerInRange;
+    bool playerInRange;
     float timer;
 
 
     void Awake()
     {
-        //Mencari game object dengan tag "Player"
-        player = GameObject.FindGameObjectWithTag("Player");
+        //Mencari game object dengan tag "Player"
+        player = GameObject.FindGameObjectWithTag("Player");
 
         //mendapatkan komponen player health
         playerHealth = player.GetComponent<PlayerHealth>();
 
         //mendapatkan komponen Animator
         anim = GetComponent<Animator>();
-        //enemyHealth = GetComponent<EnemyHealth>();  
-        playerInRange = true;    
-    }
+        //enemyHealth = GetComponent<EnemyHealth>();
+        playerInRange = true;
+ }
 
 
     
@@ -50,8 +50,8 @@ public class FoxHeal : MonoBehaviour
 
     void Heal()
     {
-        //Reset timer
-        timer = 0f;
+        //Reset timer
+        timer = 0f;
 
         //Taking Damage
         if (playerHealth.currentHealth > 0 && playerHealth.currentHealth < 100)

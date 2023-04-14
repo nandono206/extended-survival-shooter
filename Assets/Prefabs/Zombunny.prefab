@@ -104,9 +104,10 @@ GameObject:
   - component: {fileID: 7487392563164486901}
   - component: {fileID: 7487392563164486903}
   - component: {fileID: 7487392563164486897}
+  - component: {fileID: 1010231554932000113}
   m_Layer: 7
   m_Name: Zombunny
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,7 +162,7 @@ Rigidbody:
   m_Drag: Infinity
   m_AngularDrag: Infinity
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
@@ -300,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f6618a0da65fa45b24d5105d5d8422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  petSubject: {fileID: 0}
 --- !u!195 &7487392563164486901
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -336,6 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 0.5
   attackDamage: 10
+  petSubject: {fileID: 0}
 --- !u!114 &7487392563164486897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +357,24 @@ MonoBehaviour:
   sinkSpeed: 2.5
   scoreValue: 10
   deathClip: {fileID: 8300000, guid: 1d3bfb9269f136947bf8ac164cace1ff, type: 3}
+  _IsBurning: 0
+  isDead: 0
+  isSinking: 0
+--- !u!114 &1010231554932000113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487392563897180823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1fb70cc5421f9b41b015baf5c139fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Movement: {fileID: 7487392563164486906}
+  Health: {fileID: 7487392563164486897}
+  Attack: {fileID: 7487392563164486903}
 --- !u!1001 &7487392563230119773
 PrefabInstance:
   m_ObjectHideFlags: 0

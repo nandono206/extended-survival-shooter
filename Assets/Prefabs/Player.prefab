@@ -1078,6 +1078,9 @@ GameObject:
   - component: {fileID: 4040449307186060024}
   - component: {fileID: 4040449307186060025}
   - component: {fileID: 4040449307186060031}
+  - component: {fileID: 9127868889887081964}
+  - component: {fileID: 4656175998539217753}
+  - component: {fileID: 4890451672394173913}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1287,6 +1290,67 @@ MonoBehaviour:
   deathClip: {fileID: 8300000, guid: d36a393bca4582043982db9089e1694f, type: 3}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  healFlashSpeed: 5
+  healFlashColor: {r: 0, g: 1, b: 0, a: 0.1}
+  healImage: {fileID: 0}
+--- !u!208 &9127868889887081964
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4040449307186158617}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.42, y: 1.82, z: 0.42}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &4656175998539217753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4040449307186158617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 379c4ea68575c534bac479fdd8db35fb, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &4890451672394173913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4040449307186158617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3181e0bc4760bf47a66376a601d74fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4040449307186158673
 GameObject:
   m_ObjectHideFlags: 0
@@ -6455,9 +6519,6 @@ MonoBehaviour:
   range: 100
   spreadAngle: 30
   numOfShotgunBullets: 8
-  isShotgunAvailable: 0
-  isSwordAvailable: 0
-  isBowAvailable: 0
   areOtherWeaponsActive: 0
   arrowPrefab: {fileID: 6700179136344741065, guid: 2238d0f321844254385915e672b59323, type: 3}
 --- !u!114 &2872680050103565178
