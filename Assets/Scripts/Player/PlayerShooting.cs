@@ -20,18 +20,18 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     public bool areOtherWeaponsActive = true;
     public GameObject arrowPrefab;
 
-    float timer;                                    
-    Ray shootRay;                                   
-    RaycastHit shootHit;                            
+    float timer;
+    Ray shootRay;
+    RaycastHit shootHit;
     int shootableMask;
     GameObject pet;
-    ParticleSystem gunParticles;                    
-    LineRenderer gunLine;                           
+    ParticleSystem gunParticles;
+    LineRenderer gunLine;
     AudioSource gunAudio;
     GameObject spawener;
     PetSubject petSubject;
-    Light gunLight;                                 
-    float effectsDisplayTime = 0.2f;                
+    Light gunLight;
+    float effectsDisplayTime = 0.2f;
     int activeWeapon = 0;
     bool isBowCharging = false;
     float currentBowPower = 0f;
@@ -52,7 +52,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     void Awake()
     {
         shootableMask = LayerMask.GetMask("Shootable");
-    
+
         gunParticles = GetComponent<ParticleSystem>();
         gunLine = GetComponent<LineRenderer>();
         gunAudio = GetComponent<AudioSource>();
@@ -93,7 +93,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     {
         //Debug.Log("dragon dead");
         pet = null;
-        
+
     }
 
     void Update()
@@ -109,7 +109,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
             gunLine.material.color = Color.red;
         }
 
-        else 
+        else
         {
             //Debug.Log("Dragon Exists");
             damagePerGunShot = 20;
@@ -233,7 +233,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
-        
+
 
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
         {

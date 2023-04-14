@@ -10,22 +10,23 @@ public class QuestManager : MonoBehaviour
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
-    
-    [Header ("Quest Configuration")]
+    bool started = false;
+
+    [Header("Quest Configuration")]
     public List<Quest> questList;
     Quest currentActiveQuest;
-    int currentQuestIdx = 0;
+    public int currentQuestIdx = 0;
     bool isPreviousQuestCompleted = false;
     float timeLeftUntilNextQuest = 0;
-    
-    [Header ("Enemy Configuration")]
+
+    [Header("Enemy Configuration")]
     public GameObject zombear;
     public GameObject zombunny;
     public GameObject hellephant;
     public Transform[] zombearSpawnPoints;
     public Transform[] zombunnySpawnPoints;
     public Transform[] hellephantSpawnPoints;
-    
+
     int currentZombearSpawnNumber;
     int currentZombunnySpawnNumber;
     int currentHellephantSpawnNumber;
@@ -36,7 +37,7 @@ public class QuestManager : MonoBehaviour
     public static int currentZombunnyKilled;
     public static int currentHellephantKilled;
 
-    [Header ("UI Configuration")]
+    [Header("UI Configuration")]
     public GameObject questRewardUI;
     public TMP_Text questRewardIndex;
     public TMP_Text questRewardTitle;
@@ -50,14 +51,15 @@ public class QuestManager : MonoBehaviour
 
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag ("Player");
-        playerHealth = player.GetComponent <PlayerHealth> ();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = player.GetComponent<PlayerHealth>();
         playerMovement = player.GetComponent<PlayerMovement>();
         playerShooting = player.GetComponentInChildren<PlayerShooting>();
     }
-     
-    void Start()
+
+    public void StartQuest()
     {
+        started = true;
         closeButton.onClick.RemoveAllListeners();
         closeButton.onClick.AddListener(() =>
         {
@@ -89,11 +91,19 @@ public class QuestManager : MonoBehaviour
 
     void Update()
     {
-        if (timeLeftUntilNextQuest > 0f) {
+        if (!started)
+        {
+            return;
+        }
+        // Debug.Log(currentActiveQuest);
+        if (timeLeftUntilNextQuest > 0f)
+        {
             questCountdownUI.SetActive(true);
             timeLeftUntilNextQuest -= Time.deltaTime;
             questCountdownTime.text = Mathf.CeilToInt(timeLeftUntilNextQuest).ToString();
-        } else {
+        }
+        else
+        {
             questCountdownUI.SetActive(false);
             timeLeftUntilNextQuest = 0f;
         }
@@ -118,12 +128,12 @@ public class QuestManager : MonoBehaviour
         {
             ScoreManager.isTimePaused = true;
             CoinManager.coins += currentActiveQuest.coinReward;
-            
+
             // Show quest rewards UI
             questRewardIndex.text = "Quest " + (currentQuestIdx + 1);
             questRewardTitle.text = currentActiveQuest.title;
             questRewardCoins.text = currentActiveQuest.coinReward.ToString();
-            
+
             ShowQuestRewardUI();
 
             isPreviousQuestCompleted = false;
@@ -180,12 +190,12 @@ public class QuestManager : MonoBehaviour
             currentActiveQuest.zombearIsSpawnAfterDeath,
             currentActiveQuest.zombearSpawnTime
         );
-        
+
         InvokeZombunny(
             currentActiveQuest.zombunnyIsSpawnAfterDeath,
             currentActiveQuest.zombunnySpawnTime
         );
-        
+
         InvokeHellephant(
             currentActiveQuest.hellephantIsSpawnAfterDeath,
             currentActiveQuest.hellephantSpawnTime
@@ -201,14 +211,17 @@ public class QuestManager : MonoBehaviour
         );
     }
 
-    public static void AddEnemyKilled(string enemyName) {
+    public static void AddEnemyKilled(string enemyName)
+    {
         if (enemyName == "Zombear")
         {
             currentZombearKilled += 1;
-        } else if (enemyName == "Zombunny")
+        }
+        else if (enemyName == "Zombunny")
         {
             currentZombunnyKilled += 1;
-        } else if (enemyName == "Hellephant")
+        }
+        else if (enemyName == "Hellephant")
         {
             currentHellephantKilled += 1;
         }
@@ -222,7 +235,7 @@ public class QuestManager : MonoBehaviour
 
         questRewardShown = true;
     }
-    
+
     void HideQuestRewardUI()
     {
         questRewardUI.SetActive(false);
@@ -236,51 +249,51 @@ public class QuestManager : MonoBehaviour
     {
         InvokeRepeating("SpawnZombear", 0f, spawnTime);
     }
-    
+
     void InvokeZombunny(bool isSpawnAfterDeath, float spawnTime)
     {
         InvokeRepeating("SpawnZombunny", 0f, spawnTime);
     }
-    
+
     void InvokeHellephant(bool isSpawnAfterDeath, float spawnTime)
     {
         InvokeRepeating("SpawnHellephant", 0f, spawnTime);
     }
 
-    void SpawnZombear ()
+    void SpawnZombear()
     {
         if (playerHealth.currentHealth <= 0f || currentZombearSpawned >= currentZombearSpawnNumber)
         {
             return;
         }
 
-        int spawnPointIndex = Random.Range (0, zombearSpawnPoints.Length);
+        int spawnPointIndex = Random.Range(0, zombearSpawnPoints.Length);
         Instantiate(zombear, zombearSpawnPoints[spawnPointIndex].position, zombearSpawnPoints[spawnPointIndex].rotation);
 
         currentZombearSpawned += 1;
     }
-    
-    void SpawnZombunny ()
+
+    void SpawnZombunny()
     {
         if (playerHealth.currentHealth <= 0f || currentZombunnySpawned >= currentZombunnySpawnNumber)
         {
             return;
         }
 
-        int spawnPointIndex = Random.Range (0, zombunnySpawnPoints.Length);
+        int spawnPointIndex = Random.Range(0, zombunnySpawnPoints.Length);
         Instantiate(zombunny, zombunnySpawnPoints[spawnPointIndex].position, zombunnySpawnPoints[spawnPointIndex].rotation);
 
         currentZombunnySpawned += 1;
     }
-    
-    void SpawnHellephant ()
+
+    void SpawnHellephant()
     {
         if (playerHealth.currentHealth <= 0f || currentHellephantSpawned >= currentHellephantSpawnNumber)
         {
             return;
         }
 
-        int spawnPointIndex = Random.Range (0, hellephantSpawnPoints.Length);
+        int spawnPointIndex = Random.Range(0, hellephantSpawnPoints.Length);
         Instantiate(hellephant, hellephantSpawnPoints[spawnPointIndex].position, hellephantSpawnPoints[spawnPointIndex].rotation);
 
         currentHellephantSpawned += 1;
