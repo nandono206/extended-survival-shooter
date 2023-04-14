@@ -13,8 +13,11 @@ public class CheatController : MonoBehaviour
     public static CheatCommand SUMMON_DRAGON;
     public static CheatCommand SUMMON_BEAR;
     public static CheatCommand KILL_PET;
-
     public static CheatCommand FULL_HP;
+    public static CheatCommand NO_DAMAGE;
+    public static CheatCommand ONE_HIT_KILL;
+    public static CheatCommand MOTHERLODE;
+    public static CheatCommand DOUBLE_SPEED;
     public List<object> commandList;
     public void OnToggleDebug(InputValue value)
     {
@@ -36,6 +39,12 @@ public class CheatController : MonoBehaviour
     {
         GameObject spawnerObj = GameObject.FindGameObjectWithTag("Spawner");
         Spawner spawner = spawnerObj.GetComponent<Spawner>();
+
+        GameObject player = GameObject.FindGameObjectWithTag ("Player");
+        PlayerHealth playerHealth = player.GetComponent <PlayerHealth> ();
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        PlayerShooting playerShooting = player.GetComponentInChildren<PlayerShooting>();
+
         SUMMON_FOX = new CheatCommand("/f", "summon fox (healer pet)", "summon_fox", () =>
         {
             
@@ -62,7 +71,7 @@ public class CheatController : MonoBehaviour
         });
 
 
-        FULL_HP = new CheatCommand("/god", "gives pet invinsibility", "full_hp", () =>
+        FULL_HP = new CheatCommand("/angel", "gives pet invinsibility", "full_hp", () =>
         {
 
             //TODO
@@ -70,12 +79,35 @@ public class CheatController : MonoBehaviour
         });
 
 
+        NO_DAMAGE = new CheatCommand("/god", "gives player invinsibility", "no_damage", () =>
+        {
+
+            playerHealth.immortalCheat();
+        });
+
+        ONE_HIT_KILL = new CheatCommand("/ohk", "gives player one hit kill ability", "one_hit_kill", () =>
+        {
+
+            playerShooting.oneHitKillCheat();
+        });
+
+        MOTHERLODE = new CheatCommand("/ml", "gives player 999999999 coins", "motherlode", () =>
+        {
+
+            CoinManager.coins += 999999999;
+        });
+
+        DOUBLE_SPEED = new CheatCommand("/s", "gives player double speed", "double_speed", () =>
+        {
+
+            playerMovement.doubleSpeedCheat();
+        });
 
 
 
         commandList = new List<object>()
         {
-            SUMMON_DRAGON, SUMMON_FOX, SUMMON_BEAR,KILL_PET, FULL_HP
+            SUMMON_DRAGON, SUMMON_FOX, SUMMON_BEAR,KILL_PET, FULL_HP, NO_DAMAGE, ONE_HIT_KILL, MOTHERLODE, DOUBLE_SPEED
         };
     }
 
@@ -85,8 +117,9 @@ public class CheatController : MonoBehaviour
         float y = 0f;
         GUI.Box(new Rect(0, y, Screen.width, 30), "");
         GUI.backgroundColor = new Color(0, 0, 0, 0);
+        GUI.SetNextControlName("cheat");
         input = GUI.TextField(new Rect(10f, y + 5f, Screen.width - 20f, 20f), input);
-
+        GUI.FocusControl("cheat");
     }
 
     private void HandleInput()

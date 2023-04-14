@@ -20,18 +20,18 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     public bool areOtherWeaponsActive = true;
     public GameObject arrowPrefab;
 
-    float timer;                                    
-    Ray shootRay;                                   
-    RaycastHit shootHit;                            
+    float timer;
+    Ray shootRay;
+    RaycastHit shootHit;
     int shootableMask;
     GameObject pet;
-    ParticleSystem gunParticles;                    
-    LineRenderer gunLine;                           
+    ParticleSystem gunParticles;
+    LineRenderer gunLine;
     AudioSource gunAudio;
     GameObject spawener;
     PetSubject petSubject;
-    Light gunLight;                                 
-    float effectsDisplayTime = 0.2f;                
+    Light gunLight;
+    float effectsDisplayTime = 0.2f;
     int activeWeapon = 0;
     bool isBowCharging = false;
     float currentBowPower = 0f;
@@ -47,10 +47,12 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     GameObject bowBar;
     GameObject bowChargeBar;
 
+    bool isOneHitKill = false;
+
     void Awake()
     {
         shootableMask = LayerMask.GetMask("Shootable");
-    
+
         gunParticles = GetComponent<ParticleSystem>();
         gunLine = GetComponent<LineRenderer>();
         gunAudio = GetComponent<AudioSource>();
@@ -91,7 +93,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     {
         //Debug.Log("dragon dead");
         pet = null;
-        
+
     }
 
     void Update()
@@ -107,7 +109,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
             gunLine.material.color = Color.red;
         }
 
-        else 
+        else
         {
             //Debug.Log("Dragon Exists");
             damagePerGunShot = 20;
@@ -231,7 +233,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
-        
+
 
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
         {
@@ -239,7 +241,14 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damagePerGunShot, shootHit.point);
+                if (isOneHitKill)
+                {
+                    enemyHealth.TakeDamage(9999999, shootHit.point);
+                }
+                else
+                {
+                    enemyHealth.TakeDamage(damagePerGunShot, shootHit.point);
+                }
             }
 
             gunLine.SetPosition(1, shootHit.point);
@@ -269,7 +278,15 @@ public class PlayerShooting : MonoBehaviour, PetObserver
                 {
                     float distance = Vector3.Distance(transform.position, hit.point);
                     float damageMultiplier = Mathf.Clamp01(1 - distance / (range * 0.2f));
-                    enemyHealth.TakeDamage((int)(damagePerShotgunShot * damageMultiplier), hit.point);
+
+                    if (isOneHitKill)
+                    {
+                        enemyHealth.TakeDamage(9999999, hit.point);
+                    }
+                    else
+                    {
+                        enemyHealth.TakeDamage((int)(damagePerShotgunShot * damageMultiplier), hit.point);
+                    }
                 }
 
                 gunLines[i].SetPosition(1, hit.point);
@@ -292,7 +309,14 @@ public class PlayerShooting : MonoBehaviour, PetObserver
             EnemyHealth enemyHealth = hitCollider.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damagePerSwordHit, hitCollider.transform.position);
+                if (isOneHitKill)
+                {
+                    enemyHealth.TakeDamage(9999999, hitCollider.transform.position);
+                }
+                else
+                {
+                    enemyHealth.TakeDamage(damagePerSwordHit, hitCollider.transform.position);
+                }
             }
         }
         swordCollider.enabled = false;
@@ -304,5 +328,10 @@ public class PlayerShooting : MonoBehaviour, PetObserver
         arrow = Instantiate(arrowPrefab, transform.position, transform.rotation * Quaternion.Euler(0, 90, -100)) as GameObject;
         arrow.GetComponent<Rigidbody>().AddForce(transform.forward * currentBowPower, ForceMode.Impulse);
         currentBowPower = 0f;
+    }
+
+    public void oneHitKillCheat()
+    {
+        isOneHitKill = !isOneHitKill;
     }
 }

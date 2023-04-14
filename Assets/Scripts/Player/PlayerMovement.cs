@@ -113,4 +113,9 @@ public class PlayerMovement : MonoBehaviour
             // animWeapon.SetBool("IsWalking", isRunForward);
         }
     }
+
+    public void doubleSpeedCheat()
+    {
+        speed *= 2;
+    }
 }
