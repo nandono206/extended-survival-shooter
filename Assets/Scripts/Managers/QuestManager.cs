@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class QuestManager : MonoBehaviour
@@ -45,6 +46,7 @@ public class QuestManager : MonoBehaviour
     public TMP_Text questCountdownTime;
     bool questRewardShown = false;
     bool nextQuestShown;
+    public Button closeButton;
 
     void Awake()
     {
@@ -56,6 +58,26 @@ public class QuestManager : MonoBehaviour
      
     void Start()
     {
+        closeButton.onClick.RemoveAllListeners();
+        closeButton.onClick.AddListener(() =>
+        {
+            HideQuestRewardUI();
+
+            questRewardShown = false;
+            nextQuestShown = true;
+
+            if (currentQuestIdx >= questList.Count)
+            {
+                Debug.Log("Final boss is defeated!");
+                return;
+            }
+
+            currentActiveQuest = questList[currentQuestIdx];
+            questCountdownIndex.text = "Quest " + (currentQuestIdx + 1) + " starting in:";
+
+            timeLeftUntilNextQuest = 15f;
+        });
+
         // Start first quest
         currentActiveQuest = questList[currentQuestIdx];
 
@@ -94,6 +116,7 @@ public class QuestManager : MonoBehaviour
         if (isPreviousQuestCompleted && !questRewardShown)
         {
             ScoreManager.isTimePaused = true;
+            ShopManager.isShopAvailable = true;
             CoinManager.coins += currentActiveQuest.coinReward;
             
             // Show quest rewards UI
@@ -123,7 +146,7 @@ public class QuestManager : MonoBehaviour
             currentActiveQuest = questList[currentQuestIdx];
             questCountdownIndex.text = "Quest " + (currentQuestIdx + 1) + " starting in:";
 
-            timeLeftUntilNextQuest = 3f;
+            timeLeftUntilNextQuest = 15f;
         }
 
         if (timeLeftUntilNextQuest <= 0f && nextQuestShown)
@@ -138,6 +161,7 @@ public class QuestManager : MonoBehaviour
     {
         // Start timer score
         ScoreManager.isTimePaused = false;
+        ShopManager.isShopAvailable = false;
 
         // Set enemies maximum spawn number, number of spawned, and number of killed
         currentZombearSpawnNumber = currentActiveQuest.zombearSpawnNumber;

@@ -16,11 +16,14 @@ public class ShopManager : MonoBehaviour
     [SerializeField] GameObject shopPanel;
     [SerializeField] GameObject shopCue;
     [SerializeField] Button closeButton;
+    [SerializeField] Button shopButton;
     
     GameObject player;
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
+    GameObject spawnerObj;
+    Spawner spawner;
     bool playerInRange;
     bool shopShown = false;
     float itemWidth;
@@ -34,6 +37,9 @@ public class ShopManager : MonoBehaviour
         playerHealth = player.GetComponent <PlayerHealth> ();
         playerMovement = player.GetComponent<PlayerMovement>();
         playerShooting = player.GetComponentInChildren<PlayerShooting>();
+        
+        spawnerObj = GameObject.FindGameObjectWithTag("Spawner");
+        spawner = spawnerObj.GetComponent<Spawner>();
     }
 
     void Start()
@@ -46,6 +52,13 @@ public class ShopManager : MonoBehaviour
             shopShown = false;
             HideShopCue();
             HideShopPanel();
+        });
+        shopButton.onClick.RemoveAllListeners();
+        shopButton.onClick.AddListener(() =>
+        {
+            shopShown = true;
+            HideShopCue();
+            ShowShopPanel();
         });
     }
 
@@ -121,6 +134,15 @@ public class ShopManager : MonoBehaviour
         } else if (name == "Sword")
         {
             PlayerShooting.isSwordAvailable = true;
+        } else if (name == "Fox")
+        {
+            spawner.SpawnObject(0);
+        } else if (name == "Dragon")
+        {
+            spawner.SpawnObject(1);
+        } else if (name == "Bear")
+        {
+            spawner.SpawnObject(2);
         }
     }
 

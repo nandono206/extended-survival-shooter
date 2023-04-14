@@ -77,7 +77,6 @@ public class EnemyAttack : MonoBehaviour, PetObserver
 
     void Update ()
     {
-        Debug.Log(petInRange);
         if (pet == null)
         {
             pet = GameObject.FindGameObjectWithTag("Fox");
