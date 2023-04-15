@@ -67,29 +67,7 @@ public class QuestManager : MonoBehaviour
     {
         started = true;
         closeButton.onClick.RemoveAllListeners();
-        closeButton.onClick.AddListener(() =>
-        {
-            HideQuestRewardUI();
-
-            ShopManager.isShopAvailable = true;
-            questRewardShown = false;
-            nextQuestShown = true;
-
-            if (currentQuestIdx >= questList.Count)
-            {
-                Debug.Log("Final boss is defeated!");
-                SaveToScoreboard();
-
-                RedirectToEnding();
-
-                return;
-            }
-
-            currentActiveQuest = questList[currentQuestIdx];
-            questCountdownIndex.text = "Quest " + (currentQuestIdx + 1) + " starting in:";
-
-            timeLeftUntilNextQuest = 15f;
-        });
+        closeButton.onClick.AddListener(onCloseButton);
 
         // Start first quest
         currentActiveQuest = questList[currentQuestIdx];
@@ -360,5 +338,40 @@ public class QuestManager : MonoBehaviour
     void RedirectToEnding()
     {
         SceneManager.LoadScene("Ending_Scene", LoadSceneMode.Single);
+    }
+
+    public void onCloseButton()
+    {
+        HideQuestRewardUI();
+
+        ShopManager.isShopAvailable = true;
+        questRewardShown = false;
+        nextQuestShown = true;
+
+        if (currentQuestIdx >= questList.Count)
+        {
+            Debug.Log("Final boss is defeated!");
+            SaveToScoreboard();
+
+            RedirectToEnding();
+
+            return;
+        }
+
+        currentActiveQuest = questList[currentQuestIdx];
+        questCountdownIndex.text = "Quest " + (currentQuestIdx + 1) + " starting in:";
+
+        timeLeftUntilNextQuest = 15f;
+    }
+
+    public void OnLoadCloseButton()
+    {
+        StartCoroutine(LoadSaveSceneAsync());
+    }
+
+    IEnumerator LoadSaveSceneAsync()
+    {
+        yield return null; // Wait one frame before loading the scene
+        SceneManager.LoadScene("Main_Menu", LoadSceneMode.Single);
     }
 }

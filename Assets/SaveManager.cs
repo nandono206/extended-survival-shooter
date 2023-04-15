@@ -46,6 +46,19 @@ public class SaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LoadMenuTracker loadMenuTracker = GameObject.Find("LoadMenuTracker").GetComponent<LoadMenuTracker>();
+        if (loadMenuTracker.isLoadMenu)
+        {
+            LoadPanel.SetActive(true);
+            SaveUI.SetActive(true);
+            loadMenuTracker.isLoadMenu = false;
+        }
+        else
+        {
+            LoadPanel.SetActive(false);
+            SaveUI.SetActive(false);
+            QuestManager.StartQuest();
+        }
         for (int i = 0; i < 3; i++)
         {
             SaveSlots[i] = new SaveState();
