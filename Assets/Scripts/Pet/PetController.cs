@@ -67,4 +67,10 @@ public class PetController : PetSubject, IDamageable
             faceCamera.Camera = Camera;
         }
     }
+
+    public Transform GetTransform() {
+        return transform;
+    }
+
+   
 }

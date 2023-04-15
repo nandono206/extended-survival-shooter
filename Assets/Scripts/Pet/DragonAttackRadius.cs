@@ -11,13 +11,13 @@ public class DragonAttackRadius : MonoBehaviour
     public event EnemyEnteredEvent OnEnemyEnter;
     public event EnemyEnteredEvent OnEnemyExit;
 
-    private List<Enemy> EnemiesInRadius = new List<Enemy>();
+    public List<Enemy> EnemiesInRadius = new List<Enemy>();
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            Debug.Log("Gohere");
+            //Debug.Log("Gohere");
             if (!EnemiesInRadius.Contains(enemy))
             {
                 EnemiesInRadius.Add(enemy);

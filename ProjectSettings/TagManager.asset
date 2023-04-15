@@ -19,9 +19,9 @@ TagManager:
   - UI
   - Floor
   - Shootable
-  - 
-  - 
-  - 
+  - AttackRadius
+  - EnemyBullet
+  - Player
   - 
   - 
   - 

@@ -122,6 +122,7 @@ public class PetAttackEnemy : MonoBehaviour
        
         
     }
+    
 
 
     // Start is called before the first frame update
@@ -144,7 +145,7 @@ public class PetAttackEnemy : MonoBehaviour
 
 
 
-
+           
 
 
             // Search for valid target game object
@@ -154,15 +155,18 @@ public class PetAttackEnemy : MonoBehaviour
 
             if (currentTarget ==  null)
             {
+                float minDistance = float.PositiveInfinity;
                 foreach (Collider collider in colliders)
                 {
                     if (collider.CompareTag(tagtoAttack))
                     {
                         // Set new target and reset attack cooldown
-                        currentTarget = collider.gameObject;
-                        Debug.Log("target locked");
-                 
-                        break;
+                        if (Vector3.Distance(transform.position, collider.transform.position) < minDistance)
+                        {
+                            minDistance = Vector3.Distance(transform.position, collider.transform.position);
+                            currentTarget = collider.gameObject;
+                        }
+                        
                     }
                 }
             }
@@ -176,9 +180,13 @@ public class PetAttackEnemy : MonoBehaviour
             {
                 // Lock onto target
                 Vector3 targetDirection = currentTarget.transform.position;
-                Vector3 movement = (targetDirection - transform.position).normalized * followSpeed;
+                Vector3 movement = ((targetDirection - transform.position)).normalized * followSpeed;
                 movement.y = 0f;
-                nav.SetDestination(transform.position + movement);
+                if (Vector3.Distance(targetDirection, transform.position) > 7f)
+                {
+                    nav.SetDestination(transform.position + movement);
+                }
+
                 targetDirection.y = 0f; // ignore the y-axis component
                 //transform.rotation = Quaternion.LookRotation(targetDirection);
                 if (!currentTarget.GetComponent<EnemyHealth>().isSinking)

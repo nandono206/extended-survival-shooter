@@ -26,7 +26,7 @@ public class CheatController : MonoBehaviour
         
         if (showConsole)
         {
-           
+            Debug.Log(value.ToString());
             HandleInput();
             input = "";
         }
