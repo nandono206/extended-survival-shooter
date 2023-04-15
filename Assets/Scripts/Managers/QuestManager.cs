@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class QuestManager : MonoBehaviour
@@ -73,6 +74,8 @@ public class QuestManager : MonoBehaviour
             {
                 Debug.Log("Final boss is defeated!");
                 SaveToScoreboard();
+
+                RedirectToScoreboard();
 
                 return;
             }
@@ -154,6 +157,8 @@ public class QuestManager : MonoBehaviour
             {
                 Debug.Log("Final boss is defeated!");
                 SaveToScoreboard();
+
+                RedirectToScoreboard();
 
                 return;
             }
@@ -307,5 +312,10 @@ public class QuestManager : MonoBehaviour
     {
         ScoreboardManager.AddScore(new Scoreboard(PlayerName.GetName(), ScoreManager.score));
         ScoreboardManager.SaveScoreboard();
+    }
+
+    void RedirectToScoreboard()
+    {
+        SceneManager.LoadScene("Main_Menu", LoadSceneMode.Single);
     }
 }

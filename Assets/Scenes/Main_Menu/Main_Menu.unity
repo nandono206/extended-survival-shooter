@@ -2676,6 +2676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48183f55a1cfc94f8a746b376aa40d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questRewardUI: {fileID: 1473658377}
 --- !u!4 &582216819
 Transform:
   m_ObjectHideFlags: 0

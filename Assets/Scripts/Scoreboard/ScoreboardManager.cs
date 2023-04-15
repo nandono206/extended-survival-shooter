@@ -7,6 +7,8 @@ using UnityEngine;
 public class ScoreboardManager : MonoBehaviour
 {
     public static ScoreboardData scoreboardDatas;
+    public GameObject questRewardUI;
+    static bool isShowingScoreboardUI = false;
 
     void Awake()
     {
@@ -21,6 +23,16 @@ public class ScoreboardManager : MonoBehaviour
         if (scoreboardDatas == null)
         {
             scoreboardDatas = new ScoreboardData();
+        }
+    }
+
+    void Update()
+    {
+        if (isShowingScoreboardUI)
+        {
+            ShowScoreboardUI();
+
+            isShowingScoreboardUI = false;
         }
     }
 
@@ -46,5 +58,12 @@ public class ScoreboardManager : MonoBehaviour
         string path = Application.persistentDataPath + "/scoreboard.json";
         string json = JsonUtility.ToJson(scoreboardDatas);
         System.IO.File.WriteAllText(path, json);
+
+        isShowingScoreboardUI = true;
+    }
+
+    public void ShowScoreboardUI()
+    {
+        questRewardUI.SetActive(true);
     }
 }
