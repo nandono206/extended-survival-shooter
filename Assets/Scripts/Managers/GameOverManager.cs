@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
     public PlayerHealth playerHealth;       
-    public float restartDelay = 5f;            
+    public float restartDelay = 5f;  
+    public Button retryButton;        
 
 
     Animator anim;                          
@@ -13,6 +15,11 @@ public class GameOverManager : MonoBehaviour
 
     void Awake()
     {
+        retryButton.onClick.RemoveAllListeners();
+        retryButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
         anim = GetComponent<Animator>();
     }
 
@@ -27,7 +34,8 @@ public class GameOverManager : MonoBehaviour
 
             if (restartTimer >= restartDelay)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                // If more than 5 seconds, redirect to main menu
+                SceneManager.LoadScene("Main_Menu", LoadSceneMode.Single);
             }
         }
     }
