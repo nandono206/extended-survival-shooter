@@ -16,25 +16,30 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: e2d9dfc8a76445b4b8d37b400f978f93, type: 3}
     name: Bow
     type: Weapon
-    price: 10
+    price: 3000
     isPurchased: 0
   - image: {fileID: 21300000, guid: e5cc9b6acbb17fe48897e21d3452e1a2, type: 3}
     name: Shotgun
     type: Weapon
-    price: 20
+    price: 1000
     isPurchased: 0
   - image: {fileID: 21300000, guid: cdeb42b154f2aae44824d45042ab9c94, type: 3}
     name: Sword
     type: Weapon
-    price: 30
+    price: 3000
     isPurchased: 0
   - image: {fileID: 21300000, guid: 42047650ee3b1214eafd9ab307bed649, type: 3}
     name: Fox
-    type: Pet
-    price: 5000
+    type: Pet (Healer)
+    price: 3000
+    isPurchased: 0
+  - image: {fileID: 21300000, guid: 1208af8183405ef46adf381dbdb0770a, type: 3}
+    name: Dragon
+    type: Pet (Attacker)
+    price: 3000
     isPurchased: 0
   - image: {fileID: 21300000, guid: 9ac19c64d3b14f447accf3b90de20bdc, type: 3}
     name: Bear
-    type: Pet
-    price: 5000
+    type: Pet (Buff)
+    price: 3000
     isPurchased: 0

@@ -38,6 +38,8 @@ public class PetAttackEnemy : MonoBehaviour
     Animator anim;
     float movementThreshold = 0.0f;
 
+    AudioSource petAudio;
+
 
     void Awake()
     {
@@ -53,6 +55,8 @@ public class PetAttackEnemy : MonoBehaviour
         attackRadiusCollider = attackRadiusTransform.GetComponent<Collider>();
         attackRadiusTransform.gameObject.SetActive(false);
         detectionRange = CalculateVolume(attackRadiusCollider);
+
+        petAudio = GetComponent<AudioSource>();
     }
 
     private ParticleSystem CreateOnFireSystem()
@@ -64,6 +68,7 @@ public class PetAttackEnemy : MonoBehaviour
     {
         if (Enemy.TryGetComponent<EnemyHealth>(out EnemyHealth burnable))
         {
+            petAudio.Play();
             burnable.StartBurning(BurningDPS);
             Enemy.Health.OnDeath += HandleEnemyDeath;
             ParticleSystem onFireSystem = OnFirePool.Get();

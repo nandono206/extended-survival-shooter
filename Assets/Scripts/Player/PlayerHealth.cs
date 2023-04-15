@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
     public Slider healthSlider;
     public Image damageImage;
+    public AudioClip healClip;
+    public AudioClip damageClip;
     public AudioClip deathClip;
     public float flashSpeed = 5f;       // Kecepatan DamageImage flash ke layar
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f); // Warna flash
@@ -24,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     bool damaged;
     bool isHealingfromPet;
     
+    bool isImmortal = false;
 
 
     void Awake()
@@ -66,12 +69,18 @@ public class PlayerHealth : MonoBehaviour
     // Method yang dipanggil jika musuh menyerang player
     public void TakeDamage(int amount)
     {
+        if (isImmortal)
+        {
+            return;
+        }
+
         damaged = true;
 
         currentHealth -= amount;
 
         healthSlider.value = currentHealth;
 
+        playerAudio.clip = damageClip;
         playerAudio.Play();
 
         if (currentHealth <= 0 && !isDead)
@@ -88,6 +97,7 @@ public class PlayerHealth : MonoBehaviour
 
         healthSlider.value = currentHealth;
 
+        playerAudio.clip = healClip;
         playerAudio.Play();
 
         if (currentHealth <= 0 && !isDead)
@@ -122,5 +132,10 @@ public class PlayerHealth : MonoBehaviour
 
         playerMovement.enabled = false;
         playerShooting.enabled = false;
+    }
+
+    public void immortalCheat()
+    {
+        isImmortal = !isImmortal;
     }
 }

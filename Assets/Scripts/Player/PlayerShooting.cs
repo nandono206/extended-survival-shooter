@@ -10,6 +10,9 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     public float maxBowPower = 100f;
     public float bowChargeRate = 10f;
     public float timeBetweenBullets = 0.15f;
+    public float timeBetweenShotgun = 0.3f;
+    public float timeBetweenSword = 0.5f;
+    public float timeBetweenBow = 0.4f;
     public float range = 100f;
     public float spreadAngle = 50f;
     public int numOfShotgunBullets = 8;
@@ -20,18 +23,18 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     public bool areOtherWeaponsActive = true;
     public GameObject arrowPrefab;
 
-    float timer;                                    
-    Ray shootRay;                                   
-    RaycastHit shootHit;                            
+    float timer;
+    Ray shootRay;
+    RaycastHit shootHit;
     int shootableMask;
     GameObject pet;
-    ParticleSystem gunParticles;                    
-    LineRenderer gunLine;                           
-    AudioSource gunAudio;
+    ParticleSystem gunParticles;
+    LineRenderer gunLine;
+    AudioSource[] audios;
     GameObject spawener;
     PetSubject petSubject;
-    Light gunLight;                                 
-    float effectsDisplayTime = 0.2f;                
+    Light gunLight;
+    float effectsDisplayTime = 0.2f;
     int activeWeapon = 0;
     bool isBowCharging = false;
     float currentBowPower = 0f;
@@ -47,13 +50,15 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     GameObject bowBar;
     GameObject bowChargeBar;
 
+    bool isOneHitKill = false;
+
     void Awake()
     {
         shootableMask = LayerMask.GetMask("Shootable");
-    
+
         gunParticles = GetComponent<ParticleSystem>();
         gunLine = GetComponent<LineRenderer>();
-        gunAudio = GetComponent<AudioSource>();
+        audios = GetComponents<AudioSource>();
         gunLight = GetComponent<Light>();
         gun = GameObject.Find("Gun");
         shotgun = GameObject.Find("Shotgun");
@@ -91,7 +96,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     {
         //Debug.Log("dragon dead");
         pet = null;
-        
+
     }
 
     void Update()
@@ -107,7 +112,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
             gunLine.material.color = Color.red;
         }
 
-        else 
+        else
         {
             //Debug.Log("Dragon Exists");
             damagePerGunShot = 20;
@@ -117,7 +122,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
         }
 
         // Fire1: left ctrl/mouse 0
-        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
+        if (Input.GetButton("Fire1"))
         {
             Shoot();
         }
@@ -131,6 +136,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
         if (Input.GetButtonUp("Fire1") && isBowCharging)
         {
+            audios[2].Play();
             ShootBow();
             bowChargeBar.transform.localScale = new Vector3(0, 1, 1);
         }
@@ -155,15 +161,21 @@ public class PlayerShooting : MonoBehaviour, PetObserver
         {
             if (scroll > 0)
             {
-                activeWeapon--;
-                if (activeWeapon < 0)
-                    activeWeapon = 3;
+                do
+                {
+                    activeWeapon--;
+                    if (activeWeapon < 0)
+                        activeWeapon = weaponAvailable.Length - 1;
+                } while (!weaponAvailable[activeWeapon]);
             }
             else
             {
-                activeWeapon++;
-                if (activeWeapon > 3)
-                    activeWeapon = 0;
+                do
+                {
+                    activeWeapon++;
+                    if (activeWeapon > weaponAvailable.Length - 1)
+                        activeWeapon = 0;
+                } while (!weaponAvailable[activeWeapon]);
             }
         }
 
@@ -195,32 +207,36 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
     void Shoot()
     {
-        timer = 0f;
-        if (activeWeapon == 0 || activeWeapon == 1)
+        if ((activeWeapon == 0 && timer >= timeBetweenBullets) || (activeWeapon == 1 && timer >= timeBetweenShotgun))
         {
-            gunAudio.Play();
+            audios[0].Play();
 
             gunLight.enabled = true;
 
             gunParticles.Stop();
             gunParticles.Play();
 
-            if (activeWeapon == 0)
+            if (activeWeapon == 0 && timer >= timeBetweenBullets)
             {
                 ShootGun();
+                timer = 0f;
             }
-            else if (activeWeapon == 1)
+            else if (activeWeapon == 1 && timer >= timeBetweenShotgun)
             {
                 ShootShotgun();
+                timer = 0f;
             }
         }
-        else if (activeWeapon == 2)
+        else if (activeWeapon == 2 && timer >= timeBetweenSword)
         {
+            audios[1].Play();
             SwingSword();
+            timer = 0f;
         }
-        else if (activeWeapon == 3)
+        else if (activeWeapon == 3 && timer >= timeBetweenBow)
         {
             isBowCharging = true;
+            timer = 0f;
         }
     }
 
@@ -231,7 +247,7 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
         shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
-        
+
 
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
         {
@@ -239,7 +255,14 @@ public class PlayerShooting : MonoBehaviour, PetObserver
 
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damagePerGunShot, shootHit.point);
+                if (isOneHitKill)
+                {
+                    enemyHealth.TakeDamage(9999999, shootHit.point);
+                }
+                else
+                {
+                    enemyHealth.TakeDamage(damagePerGunShot, shootHit.point);
+                }
             }
 
             gunLine.SetPosition(1, shootHit.point);
@@ -269,7 +292,15 @@ public class PlayerShooting : MonoBehaviour, PetObserver
                 {
                     float distance = Vector3.Distance(transform.position, hit.point);
                     float damageMultiplier = Mathf.Clamp01(1 - distance / (range * 0.2f));
-                    enemyHealth.TakeDamage((int)(damagePerShotgunShot * damageMultiplier), hit.point);
+
+                    if (isOneHitKill)
+                    {
+                        enemyHealth.TakeDamage(9999999, hit.point);
+                    }
+                    else
+                    {
+                        enemyHealth.TakeDamage((int)(damagePerShotgunShot * damageMultiplier), hit.point);
+                    }
                 }
 
                 gunLines[i].SetPosition(1, hit.point);
@@ -292,7 +323,14 @@ public class PlayerShooting : MonoBehaviour, PetObserver
             EnemyHealth enemyHealth = hitCollider.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damagePerSwordHit, hitCollider.transform.position);
+                if (isOneHitKill)
+                {
+                    enemyHealth.TakeDamage(9999999, hitCollider.transform.position);
+                }
+                else
+                {
+                    enemyHealth.TakeDamage(damagePerSwordHit, hitCollider.transform.position);
+                }
             }
         }
         swordCollider.enabled = false;
@@ -304,5 +342,10 @@ public class PlayerShooting : MonoBehaviour, PetObserver
         arrow = Instantiate(arrowPrefab, transform.position, transform.rotation * Quaternion.Euler(0, 90, -100)) as GameObject;
         arrow.GetComponent<Rigidbody>().AddForce(transform.forward * currentBowPower, ForceMode.Impulse);
         currentBowPower = 0f;
+    }
+
+    public void oneHitKillCheat()
+    {
+        isOneHitKill = !isOneHitKill;
     }
 }
