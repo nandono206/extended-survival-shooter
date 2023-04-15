@@ -75,7 +75,7 @@ public class QuestManager : MonoBehaviour
                 Debug.Log("Final boss is defeated!");
                 SaveToScoreboard();
 
-                RedirectToScoreboard();
+                RedirectToEnding();
 
                 return;
             }
@@ -158,7 +158,7 @@ public class QuestManager : MonoBehaviour
                 Debug.Log("Final boss is defeated!");
                 SaveToScoreboard();
 
-                RedirectToScoreboard();
+                RedirectToEnding();
 
                 return;
             }
@@ -314,8 +314,8 @@ public class QuestManager : MonoBehaviour
         ScoreboardManager.SaveScoreboard();
     }
 
-    void RedirectToScoreboard()
+    void RedirectToEnding()
     {
-        SceneManager.LoadScene("Main_Menu", LoadSceneMode.Single);
+        SceneManager.LoadScene("Ending_Scene", LoadSceneMode.Single);
     }
 }
