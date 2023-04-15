@@ -1,5 +1,95 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2125245468740564383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3036649123039872765}
+  m_Layer: 0
+  m_Name: BossSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3036649123039872765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125245468740564383}
+  m_LocalRotation: {x: -0, y: 0.9063079, z: -0, w: 0.42261827}
+  m_LocalPosition: {x: 19.78, y: 0, z: -39.86}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2680360032673255230}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 130, z: 0}
+--- !u!1 &2163512374184324615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2232151416379977746}
+  - component: {fileID: 3324792704201920908}
+  m_Layer: 0
+  m_Name: Quest4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2232151416379977746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163512374184324615}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2680360032673255230}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3324792704201920908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163512374184324615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 674b179f8b3555841803c52bf157fb2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Mendapatkan Tongkat Sihir
+  description: Alice harus mengalahkan penyihir dan pengawalnya
+  coinReward: 10000
+  zombearIsSpawnAfterDeath: 0
+  zombearSpawnTime: 0
+  zombearSpawnNumber: 0
+  zombunnyIsSpawnAfterDeath: 0
+  zombunnySpawnTime: 0
+  zombunnySpawnNumber: 0
+  hellephantIsSpawnAfterDeath: 0
+  hellephantSpawnTime: 0
+  hellephantSpawnNumber: 10
+  bossIsSpawnAfterDeath: 0
+  bossSpawnTime: 0
+  bossSpawnNumber: 0
 --- !u!1 &2680360032511152617
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,6 +156,8 @@ Transform:
   - {fileID: 2680360034225819788}
   - {fileID: 2680360033352071962}
   - {fileID: 2680360032511152618}
+  - {fileID: 2232151416379977746}
+  - {fileID: 3036649123039872765}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -89,12 +181,14 @@ MonoBehaviour:
   zombear: {fileID: 5302921818965028901, guid: 4aad83c75b735104a82611540ee2cc22, type: 3}
   zombunny: {fileID: 7487392563897180823, guid: 742e715c6a8dcc7418cc1bacfe04f97d, type: 3}
   hellephant: {fileID: 7068717654920990493, guid: ca5a9dd5cc084e34291d18990aa12261, type: 3}
+  Boss: {fileID: 0}
   zombearSpawnPoints:
   - {fileID: 2680360033352071962}
   zombunnySpawnPoints:
   - {fileID: 2680360034225819788}
   hellephantSpawnPoints:
   - {fileID: 2680360032511152618}
+  bossSpawnPoints: []
   questRewardUI: {fileID: 0}
   questRewardIndex: {fileID: 0}
   questRewardTitle: {fileID: 0}
@@ -159,6 +253,9 @@ MonoBehaviour:
   hellephantIsSpawnAfterDeath: 0
   hellephantSpawnTime: 0
   hellephantSpawnNumber: 0
+  bossIsSpawnAfterDeath: 0
+  bossSpawnTime: 0
+  bossSpawnNumber: 0
 --- !u!1 &2680360033352071961
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,6 +343,9 @@ MonoBehaviour:
   hellephantIsSpawnAfterDeath: 0
   hellephantSpawnTime: 0
   hellephantSpawnNumber: 0
+  bossIsSpawnAfterDeath: 0
+  bossSpawnTime: 0
+  bossSpawnNumber: 0
 --- !u!1 &2680360034225819787
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,3 +433,6 @@ MonoBehaviour:
   hellephantIsSpawnAfterDeath: 0
   hellephantSpawnTime: 5
   hellephantSpawnNumber: 4
+  bossIsSpawnAfterDeath: 0
+  bossSpawnTime: 0
+  bossSpawnNumber: 0

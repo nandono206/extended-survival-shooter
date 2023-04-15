@@ -24,19 +24,24 @@ public class QuestManager : MonoBehaviour
     public GameObject zombear;
     public GameObject zombunny;
     public GameObject hellephant;
+    public GameObject Boss;
     public Transform[] zombearSpawnPoints;
     public Transform[] zombunnySpawnPoints;
     public Transform[] hellephantSpawnPoints;
+    public Transform[] bossSpawnPoints;
 
     int currentZombearSpawnNumber;
     int currentZombunnySpawnNumber;
     int currentHellephantSpawnNumber;
+    int currentBossSpawnNumber;
     int currentZombearSpawned;
     int currentZombunnySpawned;
     int currentHellephantSpawned;
+    int currentBossSpawned;
     public static int currentZombearKilled;
     public static int currentZombunnyKilled;
     public static int currentHellephantKilled;
+    public static int currentBossKilled;
 
     [Header("UI Configuration")]
     public GameObject questRewardUI;
@@ -187,12 +192,15 @@ public class QuestManager : MonoBehaviour
         currentZombearSpawnNumber = currentActiveQuest.zombearSpawnNumber;
         currentZombunnySpawnNumber = currentActiveQuest.zombunnySpawnNumber;
         currentHellephantSpawnNumber = currentActiveQuest.hellephantSpawnNumber;
+        currentBossSpawnNumber = currentActiveQuest.bossSpawnNumber;
         currentZombearSpawned = 0;
         currentZombunnySpawned = 0;
         currentHellephantSpawned = 0;
+        currentBossSpawned = 0;
         currentZombearKilled = 0;
         currentZombunnyKilled = 0;
         currentHellephantKilled = 0;
+        currentBossKilled = 0;
 
         // Invoke every enemies
         InvokeZombear(
@@ -209,15 +217,27 @@ public class QuestManager : MonoBehaviour
             currentActiveQuest.hellephantIsSpawnAfterDeath,
             currentActiveQuest.hellephantSpawnTime
         );
+
+        InvokeBoss(currentActiveQuest.bossIsSpawnAfterDeath, currentActiveQuest.bossSpawnTime);
+
+
     }
 
     bool questCompleted()
     {
-        return (
+        if (currentQuestIdx == 3 )
+        {
+            return currentBossKilled > 0;
+        }
+        else
+        {
+            return (
             currentZombearKilled == currentZombearSpawnNumber &&
             currentZombunnyKilled == currentZombunnySpawnNumber &&
             currentHellephantKilled == currentHellephantSpawnNumber
         );
+        }
+        
     }
 
     public static void AddEnemyKilled(string enemyName)
@@ -233,6 +253,10 @@ public class QuestManager : MonoBehaviour
         else if (enemyName == "Hellephant")
         {
             currentHellephantKilled += 1;
+        }
+        else if (enemyName == "Boss")
+        {
+            currentBossKilled += 1;
         }
     }
 
@@ -267,6 +291,11 @@ public class QuestManager : MonoBehaviour
     void InvokeHellephant(bool isSpawnAfterDeath, float spawnTime)
     {
         InvokeRepeating("SpawnHellephant", 0f, spawnTime);
+    }
+    void InvokeBoss(bool isSpawnAfterDeath, float spawnTime)
+    {
+        Debug.Log("Invoking Boss");
+        InvokeRepeating("SpawnBoss", 0f, spawnTime);
     }
 
     void SpawnZombear()
@@ -306,6 +335,20 @@ public class QuestManager : MonoBehaviour
         Instantiate(hellephant, hellephantSpawnPoints[spawnPointIndex].position, hellephantSpawnPoints[spawnPointIndex].rotation);
 
         currentHellephantSpawned += 1;
+    }
+
+    void SpawnBoss()
+    {
+        if (playerHealth.currentHealth <= 0f || currentBossSpawned >= currentBossSpawnNumber)
+        {
+            return;
+        }
+
+        int spawnPointIndex = Random.Range(0, bossSpawnPoints.Length);
+        Instantiate(Boss, bossSpawnPoints[spawnPointIndex].position, bossSpawnPoints[spawnPointIndex].rotation);
+        currentBossSpawned += 1;
+
+       
     }
 
     void SaveToScoreboard()

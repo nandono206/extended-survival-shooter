@@ -20,7 +20,7 @@ public class Boss : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-
+        Player = GameObject.FindGameObjectWithTag("Player");
         AttackRadius.OnAttack += OnAttack;
         for (int i = 0; i < Skills.Length; i++)
         {

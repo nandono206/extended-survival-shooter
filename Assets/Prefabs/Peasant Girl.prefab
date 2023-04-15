@@ -15728,7 +15728,7 @@ GameObject:
   - component: {fileID: 5983852277250706248}
   - component: {fileID: 5983852277250706249}
   - component: {fileID: 5983852277250706262}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Line of Sight Radius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15791,7 +15791,7 @@ GameObject:
   - component: {fileID: 5983852278080501289}
   - component: {fileID: 5983852278080501302}
   - component: {fileID: 5983852278080501303}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Attack Radius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16200,7 +16200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Boss
-  startingHealth: 1000
+  startingHealth: 10000
   currentHealth: 0
   sinkSpeed: 2.5
   scoreValue: 10

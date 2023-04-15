@@ -23,4 +23,9 @@ public class Quest : MonoBehaviour
     public bool hellephantIsSpawnAfterDeath;
     public float hellephantSpawnTime;
     public int hellephantSpawnNumber;
+
+    [Header("Boss Configuration")]
+    public bool bossIsSpawnAfterDeath;
+    public float bossSpawnTime;
+    public int bossSpawnNumber;
 }
