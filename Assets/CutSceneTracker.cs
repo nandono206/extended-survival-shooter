@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class SaveStateOld : ScriptableObject
+public class CutSceneTracker : MonoBehaviour
 {
+    public bool isCutScene = false;
     public string saveTitle;
     public int questIndex;
     public float score;
@@ -13,5 +13,10 @@ public class SaveStateOld : ScriptableObject
     public bool isShotgunAvailable;
     public bool isSwordAvailable;
     public bool isBowAvailable;
-    // int petIndex;
+    public int petIndex;
+    // Start is called before the first frame update
+    void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 }

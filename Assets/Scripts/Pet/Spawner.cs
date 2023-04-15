@@ -16,11 +16,12 @@ public class Spawner : PetSubject
 
     GameObject spawnedPet;
     string activePet;
+    public int petIndex = -1;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
     private void Awake()
     {
@@ -30,14 +31,16 @@ public class Spawner : PetSubject
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 
     public void SpawnObject(int index)
     {
+        petIndex = index;
         Debug.Log(spawnedPet);
-        if (spawnedPet != null) {
-            
+        if (spawnedPet != null)
+        {
+
             Destroy(spawnedPet);
         }
         Debug.Log(spawnedPet);
@@ -47,9 +50,9 @@ public class Spawner : PetSubject
         spawnedPetController.observers = this.observers;
         activePet = spawnedPet.tag;
         NotifyObservers(activePet);
-      
-        
-        
+
+
+
     }
 
     public void FullHpPet()
@@ -62,6 +65,7 @@ public class Spawner : PetSubject
 
     public void DestroyObject()
     {
+        petIndex = -1;
         spawnedPet.GetComponent<PetController>().Health = 0;
         Destroy(spawnedPet);
         NotifyDead();

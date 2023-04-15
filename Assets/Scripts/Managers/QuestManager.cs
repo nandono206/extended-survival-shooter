@@ -12,6 +12,8 @@ public class QuestManager : MonoBehaviour
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
     bool started = false;
+    [SerializeField]
+    private SaveManager SaveManager;
 
     [Header("Quest Configuration")]
     public List<Quest> questList;
@@ -203,7 +205,7 @@ public class QuestManager : MonoBehaviour
 
     bool questCompleted()
     {
-        if (currentQuestIdx == 3 )
+        if (currentQuestIdx == 3)
         {
             return currentBossKilled > 0;
         }
@@ -215,7 +217,7 @@ public class QuestManager : MonoBehaviour
             currentHellephantKilled == currentHellephantSpawnNumber
         );
         }
-        
+
     }
 
     public static void AddEnemyKilled(string enemyName)
@@ -326,7 +328,7 @@ public class QuestManager : MonoBehaviour
         Instantiate(Boss, bossSpawnPoints[spawnPointIndex].position, bossSpawnPoints[spawnPointIndex].rotation);
         currentBossSpawned += 1;
 
-       
+
     }
 
     void SaveToScoreboard()
@@ -342,26 +344,33 @@ public class QuestManager : MonoBehaviour
 
     public void onCloseButton()
     {
-        HideQuestRewardUI();
-
-        ShopManager.isShopAvailable = true;
-        questRewardShown = false;
-        nextQuestShown = true;
-
-        if (currentQuestIdx >= questList.Count)
+        if (currentQuestIdx == 3)
         {
-            Debug.Log("Final boss is defeated!");
-            SaveToScoreboard();
-
-            RedirectToEnding();
-
-            return;
+            SaveManager.goToCutScene();
         }
+        else
+        {
+            HideQuestRewardUI();
 
-        currentActiveQuest = questList[currentQuestIdx];
-        questCountdownIndex.text = "Quest " + (currentQuestIdx + 1) + " starting in:";
+            ShopManager.isShopAvailable = true;
+            questRewardShown = false;
+            nextQuestShown = true;
 
-        timeLeftUntilNextQuest = 15f;
+            if (currentQuestIdx >= questList.Count)
+            {
+                Debug.Log("Final boss is defeated!");
+                SaveToScoreboard();
+
+                RedirectToEnding();
+
+                return;
+            }
+
+            currentActiveQuest = questList[currentQuestIdx];
+            questCountdownIndex.text = "Quest " + (currentQuestIdx + 1) + " starting in:";
+
+            timeLeftUntilNextQuest = 15f;
+        }
     }
 
     public void OnLoadCloseButton()

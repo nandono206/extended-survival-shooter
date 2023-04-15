@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Zombunny
-  startingHealth: 100
+  startingHealth: 160
   currentHealth: 0
   sinkSpeed: 2.5
   scoreValue: 10

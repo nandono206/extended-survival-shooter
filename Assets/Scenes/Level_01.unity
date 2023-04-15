@@ -1169,6 +1169,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 161491892}
     - target: {fileID: 1973853359429349178, guid: dec7039316dbc454d93218a6025ef153, type: 3}
+      propertyPath: Spawner
+      value: 
+      objectReference: {fileID: 872406225}
+    - target: {fileID: 1973853359429349178, guid: dec7039316dbc454d93218a6025ef153, type: 3}
       propertyPath: LoadPanel
       value: 
       objectReference: {fileID: 161491891}
@@ -1552,6 +1556,7 @@ MonoBehaviour:
   - {fileID: 3419710380935876408, guid: 2ebb3c3a0bf64464aa7b4f5354eb3036, type: 3}
   Camera: {fileID: 963194227}
   HealthBarCanvas: {fileID: 0}
+  petIndex: -1
 --- !u!224 &892849076 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 286124819304838306, guid: 21af3082338acca49b68b80634ae5d7e, type: 3}
@@ -2239,6 +2244,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348864709}
   m_CullTransparentMesh: 1
+--- !u!1 &1349155801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1349155803}
+  - component: {fileID: 1349155802}
+  m_Layer: 0
+  m_Name: CutSceneTracker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1349155802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349155801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564493364cc344f40af346e7f459bcdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCutScene: 0
+  saveTitle: 
+  questIndex: 0
+  score: 0
+  health: 0
+  coins: 0
+  isShotgunAvailable: 0
+  isSwordAvailable: 0
+  isBowAvailable: 0
+  petIndex: 0
+--- !u!4 &1349155803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349155801}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 945.25543, y: 638.81085, z: -2974.8967}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1383578802 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 174602, guid: ad67cddd729fb4342be2063a3f5ad7cc, type: 3}
@@ -3877,6 +3936,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2680360032673255229, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+      propertyPath: Boss
+      value: 
+      objectReference: {fileID: 6902751731656296911, guid: 5ca419940098f77408387192f2f2d3d6, type: 3}
+    - target: {fileID: 2680360032673255229, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+      propertyPath: SaveManager
+      value: 
+      objectReference: {fileID: 178606540}
+    - target: {fileID: 2680360032673255229, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
       propertyPath: closeButton
       value: 
       objectReference: {fileID: 1711441668}
@@ -3916,6 +3983,14 @@ PrefabInstance:
       propertyPath: questList.Array.data[3]
       value: 
       objectReference: {fileID: 7634918555589240656}
+    - target: {fileID: 2680360032673255229, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+      propertyPath: bossSpawnPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680360032673255229, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+      propertyPath: bossSpawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 7634918555589240657}
     - target: {fileID: 2680360032673255230, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -3974,7 +4049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3324792704201920908, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
       propertyPath: hellephantSpawnTime
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3324792704201920908, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
       propertyPath: zombunnySpawnNumber
@@ -3993,6 +4068,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674b179f8b3555841803c52bf157fb2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7634918555589240657 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3036649123039872765, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+  m_PrefabInstance: {fileID: 7634918555589240655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &9043119086086305309 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2873230542009275017, guid: dfd600b6257c3f54087b15bdd3d2a55e, type: 3}
