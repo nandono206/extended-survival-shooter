@@ -29,6 +29,8 @@ public class SaveManager : MonoBehaviour
     [SerializeField]
     private QuestManager QuestManager;
     [SerializeField]
+    private ShopManager ShopManager;
+    [SerializeField]
     private ScoreManager ScoreManager;
     [SerializeField]
     private PlayerHealth PlayerHealth;
@@ -138,6 +140,7 @@ public class SaveManager : MonoBehaviour
         LoadPanel.SetActive(false);
         SaveUI.SetActive(false);
         QuestManager.StartQuest();
+        ShopManager.RegenerateShop();
     }
 
     public void goToCutScene()

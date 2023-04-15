@@ -91,20 +91,29 @@ public class ShopManager : MonoBehaviour
                 uiItem.SetItemPrice(item.price);
                 uiItem.OnItemPurchase(i, OnItemPurchased);
             }
+
+            // For saved file controller
             if (item.name == "Shotgun" && PlayerShooting.isShotgunAvailable)
             {
                 uiItem.SetItemAsPurchased();
                 SetAvailableItem(item.name);
             }
+            
             else if (item.name == "Bow" && PlayerShooting.isBowAvailable)
             {
                 uiItem.SetItemAsPurchased();
                 SetAvailableItem(item.name);
             }
+            
             else if (item.name == "Sword" && PlayerShooting.isSwordAvailable)
             {
                 uiItem.SetItemAsPurchased();
                 SetAvailableItem(item.name);
+            }
+            
+            else if ((item.name == "Fox" || item.name == "Dragon" || item.name == "Bear") && spawner.petIndex != -1)
+            {
+                uiItem.SetItemAsPurchased();
             }
 
             shopItemsContainer.GetComponent<RectTransform>().sizeDelta = Vector2.left * ((itemWidth + itemSpacing) * shopItemDatabase.ShopItemCount + itemSpacing);
@@ -123,6 +132,11 @@ public class ShopManager : MonoBehaviour
             uiItem.SetItemAsPurchased();
 
             SetAvailableItem(item.name);
+
+            if (spawner.petIndex != -1)
+            {
+                RegenerateShop();
+            }
         }
         else
         {
@@ -246,5 +260,10 @@ public class ShopManager : MonoBehaviour
         {
             playerInRange = false;
         }
+    }
+
+    public void RegenerateShop()
+    {
+        GenerateShopItemsUI();
     }
 }

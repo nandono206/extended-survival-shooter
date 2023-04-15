@@ -55,6 +55,7 @@ public class QuestManager : MonoBehaviour
     public TMP_Text questCountdownTime;
     bool questRewardShown = false;
     bool nextQuestShown;
+    bool startedSavedGame = false;
     public Button closeButton;
 
     void Awake()
@@ -74,9 +75,35 @@ public class QuestManager : MonoBehaviour
         // Start first quest
         currentActiveQuest = questList[currentQuestIdx];
 
-        // Show quest UI
-        // If key is clicked, start next quest
-        GenerateQuest();
+        if (currentQuestIdx != 0)
+        {
+            ShopManager.isShopAvailable = true;
+            questRewardShown = false;
+            nextQuestShown = true;
+
+            if (currentQuestIdx >= questList.Count)
+            {
+                Debug.Log("Final boss is defeated!");
+                SaveToScoreboard();
+
+                RedirectToEnding();
+
+                return;
+            }
+
+            currentActiveQuest = questList[currentQuestIdx];
+            questCountdownIndex.text = "Quest " + (currentQuestIdx + 1) + " starting in:";
+
+            timeLeftUntilNextQuest = 15f;
+
+            startedSavedGame = true;
+        }
+        else
+        {
+            // Show quest UI
+            // If key is clicked, start next quest
+            GenerateQuest();
+        }
     }
 
     void Update()
@@ -85,7 +112,7 @@ public class QuestManager : MonoBehaviour
         {
             return;
         }
-        // Debug.Log(currentActiveQuest);
+        
         if (timeLeftUntilNextQuest > 0f)
         {
             questCountdownUI.SetActive(true);
@@ -109,6 +136,10 @@ public class QuestManager : MonoBehaviour
             isPreviousQuestCompleted = false;
         }
         if (nextQuestShown)
+        {
+            isPreviousQuestCompleted = false;
+        }
+        if (startedSavedGame)
         {
             isPreviousQuestCompleted = false;
         }
@@ -159,6 +190,7 @@ public class QuestManager : MonoBehaviour
             GenerateQuest();
 
             nextQuestShown = false;
+            startedSavedGame = false;
         }
     }
 
