@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1492,6 +1492,7 @@ MonoBehaviour:
   - {fileID: 3419710380935876408, guid: 2ebb3c3a0bf64464aa7b4f5354eb3036, type: 3}
   Camera: {fileID: 963194227}
   HealthBarCanvas: {fileID: 0}
+  health: -999
 --- !u!224 &892849076 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 286124819304838306, guid: 21af3082338acca49b68b80634ae5d7e, type: 3}
@@ -2961,6 +2962,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1823139166 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3036649123039872765, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+  m_PrefabInstance: {fileID: 7634918555589240655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1843690844
 GameObject:
   m_ObjectHideFlags: 0
@@ -3817,6 +3823,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2680360032673255229, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+      propertyPath: Boss
+      value: 
+      objectReference: {fileID: 6902751731656296911, guid: 5ca419940098f77408387192f2f2d3d6, type: 3}
+    - target: {fileID: 2680360032673255229, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
       propertyPath: closeButton
       value: 
       objectReference: {fileID: 1711441668}
@@ -3848,6 +3858,14 @@ PrefabInstance:
       propertyPath: questCountdownIndex
       value: 
       objectReference: {fileID: 383363537}
+    - target: {fileID: 2680360032673255229, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+      propertyPath: bossSpawnPoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680360032673255229, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+      propertyPath: bossSpawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1823139166}
     - target: {fileID: 2680360032673255230, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -3891,6 +3909,14 @@ PrefabInstance:
     - target: {fileID: 2680360032673255230, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3324792704201920908, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+      propertyPath: bossSpawnTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3324792704201920908, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}
+      propertyPath: bossSpawnNumber
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ebbb9bc16553546871d3138f5c0751, type: 3}

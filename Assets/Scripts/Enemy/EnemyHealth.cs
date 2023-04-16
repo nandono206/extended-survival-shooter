@@ -85,7 +85,7 @@ public class EnemyHealth : MonoBehaviour
 
         //enemyAudio.Play();
         //Debug.Log("BURNING");
-        Debug.Log(currentHealth);
+        //Debug.Log(currentHealth);
         currentHealth -= Damage;
 
         
@@ -93,8 +93,8 @@ public class EnemyHealth : MonoBehaviour
         {
             isDead = true;
             //StopBurning();
-            Debug.Log(currentHealth);
-            Debug.Log("still burning take burn");
+            //Debug.Log(currentHealth);
+            //Debug.Log("still burning take burn");
             OnDeath?.Invoke(GetComponent<Enemy>());
             StopBurning();
             //yield return new WaitForSeconds(3f);
@@ -127,7 +127,7 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio.Play ();
 
         currentHealth -= amount;
-        Debug.Log(currentHealth);
+       // Debug.Log(currentHealth);
 
 
         // Cari posisi hit point lalu munculkan partikel
@@ -139,7 +139,7 @@ public class EnemyHealth : MonoBehaviour
             isDead = true;
             if (IsBurning)
             {
-                Debug.Log("still burning");
+               // Debug.Log("still burning");
                 OnDeath?.Invoke(GetComponent<Enemy>());
                 StopBurning();
                 Death ();
@@ -164,7 +164,7 @@ public class EnemyHealth : MonoBehaviour
         capsuleCollider.isTrigger = true;
 
         anim.SetTrigger ("Dead");
-        Debug.Log("DEAD");
+        //Debug.Log("DEAD");
         enemyAudio.clip = deathClip;
         enemyAudio.Play ();
        

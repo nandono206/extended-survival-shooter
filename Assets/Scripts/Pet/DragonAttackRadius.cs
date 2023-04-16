@@ -17,7 +17,7 @@ public class DragonAttackRadius : MonoBehaviour
     {
         if (other.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            //Debug.Log("Gohere");
+            Debug.Log("Gohere");
             if (!EnemiesInRadius.Contains(enemy))
             {
                 EnemiesInRadius.Add(enemy);

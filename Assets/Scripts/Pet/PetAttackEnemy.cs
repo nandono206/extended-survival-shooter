@@ -68,6 +68,7 @@ public class PetAttackEnemy : MonoBehaviour
     {
         if (Enemy.TryGetComponent<EnemyHealth>(out EnemyHealth burnable))
         {
+            Debug.Log("start burning");
             petAudio.Play();
             burnable.StartBurning(BurningDPS);
             Enemy.Health.OnDeath += HandleEnemyDeath;
@@ -139,8 +140,11 @@ public class PetAttackEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Pet Health: " + gameObject.GetComponent<PetController>().Health);
+        Debug.Log("Player Health: " + target.GetComponent<PlayerHealth>().currentHealth);
         if (gameObject.GetComponent<PetController>().Health > 0 && target.GetComponent<PlayerHealth>().currentHealth > 0)
         {
+            Debug.Log("ACTIVE");
             Vector3 playerPos = target.position;
 
             Vector3 center = playerPos;
@@ -150,7 +154,13 @@ public class PetAttackEnemy : MonoBehaviour
 
 
 
-           
+           if (currentTarget != null)
+            {
+                if (currentTarget.GetComponent<EnemyHealth>().currentHealth < 0)
+                {
+                    currentTarget = null;
+                }
+            }
 
 
             // Search for valid target game object
@@ -183,6 +193,7 @@ public class PetAttackEnemy : MonoBehaviour
             // If current target exists, lock onto target and attack
             if (currentTarget != null)
             {
+                Debug.Log("target exists");
                 // Lock onto target
                 Vector3 targetDirection = currentTarget.transform.position;
                 Vector3 movement = ((targetDirection - transform.position)).normalized * followSpeed;
@@ -205,6 +216,7 @@ public class PetAttackEnemy : MonoBehaviour
             }
             else
             {
+                Debug.Log("Following Player");
                 AttackRadius.gameObject.SetActive(false);
                 ShootingSystem.gameObject.SetActive(false);
                 // Move towards a default direction or avoid direction if needed
@@ -216,6 +228,7 @@ public class PetAttackEnemy : MonoBehaviour
         }
         else
         {
+            Debug.Log("not active");
             nav.enabled = false;
         }
 

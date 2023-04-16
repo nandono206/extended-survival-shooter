@@ -94,10 +94,10 @@ public class EnemyMovement : MonoBehaviour, PetObserver
         {
             //Debug.Log("Chase Player");
             targetPosition = transformA.position;
-            if (transformB != null)
-            {
-                targetPosition = transformB.transform.position;
-            }
+            //if (transformB != null)
+            //{
+            //    targetPosition = transformA.transform.position;
+            //}
             
         }
         else

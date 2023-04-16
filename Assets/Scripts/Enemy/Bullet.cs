@@ -38,6 +38,11 @@ public class Bullet : PoolableObject
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(this.Damage);
         }
 
+        if (other.gameObject.CompareTag("Dragon") || other.gameObject.CompareTag("Fox") || other.gameObject.CompareTag("Bear"))
+        {
+            other.gameObject.GetComponent<PetController>().OnTakeDamage(this.Damage);
+        }
+
         Disable();
     }
 

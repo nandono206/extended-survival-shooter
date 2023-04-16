@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
@@ -18,11 +19,14 @@ public class PetController : PetSubject, IDamageable
 
     public bool isImmortal = false;
 
+    public Spawner spawner;
+
     
 
     private void Awake()
     {
         MaxHealth = Health;
+        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
         Agent = GetComponent<NavMeshAgent>();
     }
 
@@ -33,6 +37,7 @@ public class PetController : PetSubject, IDamageable
             Health -= Damage;
             //Debug.Log(Health);
             HealthBar.SetProgress(Health / MaxHealth, 3);
+            NotifyDamaged(Health);
 
             if (Health <= 0)
             {
@@ -42,6 +47,11 @@ public class PetController : PetSubject, IDamageable
             }
         }
         
+    }
+
+    private void NotifyDamaged(int health)
+    {
+        spawner.OnNotifyDamaged(health);
     }
 
     public void fullHpCheat()

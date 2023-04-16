@@ -88,8 +88,8 @@ MonoBehaviour:
   hellephantSpawnTime: 0
   hellephantSpawnNumber: 10
   bossIsSpawnAfterDeath: 0
-  bossSpawnTime: 0
-  bossSpawnNumber: 0
+  bossSpawnTime: 1
+  bossSpawnNumber: 1
 --- !u!1 &2680360032511152617
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,18 +177,20 @@ MonoBehaviour:
   - {fileID: 2680360033717645262}
   - {fileID: 2680360033073252694}
   - {fileID: 7634918556906208771}
+  - {fileID: 3324792704201920908}
   currentQuestIdx: 0
   zombear: {fileID: 5302921818965028901, guid: 4aad83c75b735104a82611540ee2cc22, type: 3}
   zombunny: {fileID: 7487392563897180823, guid: 742e715c6a8dcc7418cc1bacfe04f97d, type: 3}
   hellephant: {fileID: 7068717654920990493, guid: ca5a9dd5cc084e34291d18990aa12261, type: 3}
-  Boss: {fileID: 0}
+  Boss: {fileID: 6902751731656296911, guid: 5ca419940098f77408387192f2f2d3d6, type: 3}
   zombearSpawnPoints:
   - {fileID: 2680360033352071962}
   zombunnySpawnPoints:
   - {fileID: 2680360034225819788}
   hellephantSpawnPoints:
   - {fileID: 2680360032511152618}
-  bossSpawnPoints: []
+  bossSpawnPoints:
+  - {fileID: 3036649123039872765}
   questRewardUI: {fileID: 0}
   questRewardIndex: {fileID: 0}
   questRewardTitle: {fileID: 0}

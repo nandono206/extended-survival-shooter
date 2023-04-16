@@ -12,6 +12,8 @@ public class Spawner : PetSubject
     [SerializeField]
     private Canvas HealthBarCanvas;
 
+    public int health = -999;
+
 
 
     GameObject spawnedPet;
@@ -43,6 +45,10 @@ public class Spawner : PetSubject
         Debug.Log(spawnedPet);
         spawnedPet = Instantiate(objectsToSpawn[index], transform.position, transform.rotation);
         PetController spawnedPetController = spawnedPet.GetComponent<PetController>();
+        if (health > 0)
+        {
+            spawnedPetController.Health = health;
+        }
         spawnedPetController.SetupHealthBar(Camera);
         spawnedPetController.observers = this.observers;
         activePet = spawnedPet.tag;
@@ -65,5 +71,10 @@ public class Spawner : PetSubject
         spawnedPet.GetComponent<PetController>().Health = 0;
         Destroy(spawnedPet);
         NotifyDead();
+    }
+
+    public void OnNotifyDamaged(int health)
+    {
+        this.health = health;
     }
 }
