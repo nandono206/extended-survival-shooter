@@ -203,5 +203,6 @@ public class SaveManager : MonoBehaviour
         cutSceneTracker.petHealth = Spawner.health;
         cutSceneTracker.isCutScene = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Scene_Tambahan");
+        AudioManager.Instance.MusicVolume(0);
     }
 }

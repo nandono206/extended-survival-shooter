@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
     bool damaged;
     bool isHealingfromPet;
     
-    bool isImmortal = false;
+    public bool isImmortal = false;
 
 
     void Awake()

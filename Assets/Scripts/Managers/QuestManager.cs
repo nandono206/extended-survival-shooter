@@ -159,6 +159,12 @@ public class QuestManager : MonoBehaviour
 
             isPreviousQuestCompleted = false;
             currentQuestIdx += 1;
+
+            if (currentQuestIdx >= questList.Count)
+            {
+                playerHealth.isImmortal = true;
+            }
+
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && questRewardShown)
@@ -372,6 +378,7 @@ public class QuestManager : MonoBehaviour
     void RedirectToEnding()
     {
         SceneManager.LoadScene("Ending_Scene", LoadSceneMode.Single);
+        AudioManager.Instance.MusicVolume(0);
     }
 
     public void onCloseButton()
