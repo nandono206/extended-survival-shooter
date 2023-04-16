@@ -44,7 +44,7 @@ Extended Survival Shooter merupakan game bertema survival shooting. Pada game in
 | No  | NIM      | Nama                           | Lama Persiapan dan Pengerjaan             |
 | --- | -------- | ------------------------------ | ----------------------------------------- |
 | 1   | 13520020 | William Manuel Kurniawan       | _Sedang sakit dan dirawat di rumah sakit_ |
-| 2   | 13520070 | Raden Haryosatyo Wisjnunandono | 120 jam                                   |
-| 3   | 13520074 | Eiffel Aqila Amarendra         | 120 jam                                   |
-| 4   | 13520140 | Febryola Kurnia Putri          | 120 jam                                   |
-| 5   | 13520144 | Zayd Muhammad Kawakibi Zuhri   | 120 jam                                   |
+| 2   | 13520070 | Raden Haryosatyo Wisjnunandono | 64 jam                                   |
+| 3   | 13520074 | Eiffel Aqila Amarendra         | 64 jam                                   |
+| 4   | 13520140 | Febryola Kurnia Putri          | 64 jam                                   |
+| 5   | 13520144 | Zayd Muhammad Kawakibi Zuhri   | 64 jam                                   |

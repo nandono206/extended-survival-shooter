@@ -34,11 +34,13 @@ public class Boss : MonoBehaviour, IDamageable
         }
         bossHealthUI.SetActive(true);
         
+        
     }
 
     private void Update()
     {
-        //Debug.Log("On Update Boss");
+        Debug.Log("On Update Boss");
+        float showHealth;
         for (int i = 0; i < Skills.Length; i++)
         {
             if (Skills[i].CanUseSkill(this, Player, Level))
@@ -51,7 +53,10 @@ public class Boss : MonoBehaviour, IDamageable
                 //Debug.Log("Cannott");
             }
         }
-        bossHealthSlider.value = gameObject.GetComponent<EnemyHealth>().currentHealth;
+        showHealth = (gameObject.GetComponent<EnemyHealth>().currentHealth * 100f / gameObject.GetComponent<EnemyHealth>().startingHealth);
+        Debug.Log("SLIDER VALUE: " + showHealth);
+        Debug.Log("Boss Health: " + gameObject.GetComponent<EnemyHealth>().currentHealth);
+        bossHealthSlider.value = showHealth;
         
     }
 

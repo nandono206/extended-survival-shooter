@@ -35,18 +35,18 @@ public class SkillScriptableObject : ScriptableObject
 
     public virtual bool CanUseSkill(Boss Enemy, GameObject Player, int Level)
     {
-        //Debug.Log("Cooldown Time: " + Cooldown.ToString());
-        //Debug.Log("use time: " + UseTime.ToString());
-        //Debug.Log("Current time: " + Time.time.ToString());
-        //Debug.Log("");
-        //if (IsActivating)
-        //{
-        //    Debug.Log("IS ACTIVATING");
-        //}
-        //if (UseTime + Cooldown < Time.time)
-        //{
-        //    Debug.Log("Cooldown done");
-        //}
+        Debug.Log("Cooldown Time: " + Cooldown.ToString());
+        Debug.Log("use time: " + UseTime.ToString());
+        Debug.Log("Current time: " + Time.time.ToString());
+        Debug.Log("");
+        if (IsActivating)
+        {
+            Debug.Log("IS ACTIVATING");
+        }
+        if (UseTime + Cooldown < Time.time)
+        {
+            Debug.Log("Cooldown done");
+        }
         return !IsActivating
             && UseTime + Cooldown < Time.time;
     }
