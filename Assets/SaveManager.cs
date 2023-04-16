@@ -50,11 +50,21 @@ public class SaveManager : MonoBehaviour
     private GameObject[] SlotInputs = new GameObject[3];
     private GameObject[] SlotFields = new GameObject[3];
     private GameObject[] SlotSubmits = new GameObject[3];
+    [SerializeField]
+    private GameObject CutSceneTrackerPrefab;
+    [SerializeField]
+    private GameObject RetryTrackerPrefab;
+    private RetryTracker retryTracker;
 
     // Start is called before the first frame update
     void Start()
     {
-        CutSceneTracker cutSceneTracker = GameObject.Find("CutSceneTracker").GetComponent<CutSceneTracker>();
+        GameObject cutSceneTrackerObj = GameObject.Find("CutSceneTracker(Clone)");
+        if (cutSceneTrackerObj == null)
+        {
+            cutSceneTrackerObj = Instantiate(CutSceneTrackerPrefab) as GameObject;
+        }
+        CutSceneTracker cutSceneTracker = cutSceneTrackerObj.GetComponent<CutSceneTracker>();
         if (cutSceneTracker.isCutScene)
         {
             QuestManager.currentQuestIdx = cutSceneTracker.questIndex;
@@ -77,7 +87,18 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            LoadMenuTracker loadMenuTracker = GameObject.Find("LoadMenuTracker").GetComponent<LoadMenuTracker>();
+            GameObject retryTrackerObj = GameObject.Find("RetryTracker(Clone)");
+            if (retryTrackerObj == null)
+            {
+                retryTrackerObj = Instantiate(RetryTrackerPrefab) as GameObject;
+            }
+            retryTracker = retryTrackerObj.GetComponent<RetryTracker>();
+            if (retryTracker.lastSavedSlot != -1)
+            {
+                LoadSlot(retryTracker.lastSavedSlot);
+            }
+
+            LoadMenuTracker loadMenuTracker = GameObject.Find("LoadMenuTracker(Clone)").GetComponent<LoadMenuTracker>();
             if (loadMenuTracker.isLoadMenu)
             {
                 LoadPanel.SetActive(true);
@@ -107,6 +128,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveSlot(int slot)
     {
+        retryTracker.lastSavedSlot = slot;
         // get TMP text field and save to saveTitle
         SaveSlots[slot].saveTitle = SlotFields[slot].GetComponent<TMP_InputField>().text;
         SlotButtons[slot].transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = SaveSlots[slot].saveTitle;
@@ -161,7 +183,7 @@ public class SaveManager : MonoBehaviour
 
     public void goToCutScene()
     {
-        CutSceneTracker cutSceneTracker = GameObject.Find("CutSceneTracker").GetComponent<CutSceneTracker>();
+        CutSceneTracker cutSceneTracker = GameObject.Find("CutSceneTracker(Clone)").GetComponent<CutSceneTracker>();
         cutSceneTracker.questIndex = QuestManager.currentQuestIdx;
         cutSceneTracker.score = ScoreManager.score;
         cutSceneTracker.health = PlayerHealth.currentHealth;

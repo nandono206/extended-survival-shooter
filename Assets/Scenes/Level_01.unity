@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
+  m_IndirectSpecularColor: {r: 261.9007, g: 324.45554, b: 429.43463, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1201,6 +1201,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1691990039}
     - target: {fileID: 1973853359429349178, guid: dec7039316dbc454d93218a6025ef153, type: 3}
+      propertyPath: RetryTrackerPrefab
+      value: 
+      objectReference: {fileID: 303350498231433258, guid: c4f2436fa97cc1448a0e3f6323aa8735, type: 3}
+    - target: {fileID: 1973853359429349178, guid: dec7039316dbc454d93218a6025ef153, type: 3}
+      propertyPath: CutSceneTrackerPrefab
+      value: 
+      objectReference: {fileID: 1455978627967247832, guid: 4c66d4c3d3a428549901231438631d3b, type: 3}
+    - target: {fileID: 1973853359429349178, guid: dec7039316dbc454d93218a6025ef153, type: 3}
       propertyPath: SlotInputs.Array.data[0]
       value: 
       objectReference: {fileID: 161491887}
@@ -2260,64 +2268,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348864709}
   m_CullTransparentMesh: 1
---- !u!1 &1349155801
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1349155803}
-  - component: {fileID: 1349155802}
-  m_Layer: 0
-  m_Name: CutSceneTracker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1349155802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1349155801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 564493364cc344f40af346e7f459bcdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isCutScene: 0
-  saveTitle: 
-  questIndex: 0
-  score: 0
-  health: 0
-  coins: 0
-  isShotgunAvailable: 0
-  isSwordAvailable: 0
-  isBowAvailable: 0
-  isGunUpgraded: 0
-  isShotgunUpgraded: 0
-  isSwordUpgraded: 0
-  isBowUpgraded: 0
-  petIndex: 0
---- !u!4 &1349155803
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1349155801}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 945.25543, y: 638.81085, z: -2974.8967}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1383578802 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 174602, guid: ad67cddd729fb4342be2063a3f5ad7cc, type: 3}

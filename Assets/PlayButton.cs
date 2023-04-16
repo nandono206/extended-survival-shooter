@@ -5,7 +5,9 @@ using System.Collections; // Include this namespace
 
 public class PlayButton : MonoBehaviour
 {
-    private LoadMenuTracker[] LoadMenuTracker;
+    private LoadMenuTracker LoadMenuTracker;
+    [SerializeField]
+    private GameObject LoadMenuTrackerPrefab;
     void Start()
     {
         DontDestroyOnLoad(gameObject); // Don't destroy this GameObject when loading a new scene
@@ -14,7 +16,12 @@ public class PlayButton : MonoBehaviour
 
     void Awake()
     {
-        LoadMenuTracker = FindObjectsOfType<LoadMenuTracker>();
+        GameObject LoadMenuTrackerObj = GameObject.Find("LoadMenuTracker(Clone)");
+        if (LoadMenuTrackerObj == null)
+        {
+            LoadMenuTrackerObj = Instantiate(LoadMenuTrackerPrefab) as GameObject;
+        }
+        LoadMenuTracker = LoadMenuTrackerObj.GetComponent<LoadMenuTracker>();
     }
 
     void OnClick()
@@ -35,10 +42,7 @@ public class PlayButton : MonoBehaviour
 
     IEnumerator LoadSaveSceneAsync()
     {
-        for (int i = 0; i < LoadMenuTracker.Length; i++)
-        {
-            LoadMenuTracker[i].isLoadMenu = true;
-        }
+        LoadMenuTracker.isLoadMenu = true;
         yield return null; // Wait one frame before loading the scene
         SceneManager.LoadScene("Level_01", LoadSceneMode.Single);
     }
