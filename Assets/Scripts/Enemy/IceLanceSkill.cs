@@ -31,14 +31,14 @@ public class IceLanceSkill : SkillScriptableObject
 
     public override bool CanUseSkill(Boss Enemy, GameObject Player, int Level)
     {
-        //if (base.CanUseSkill(Enemy, Player, Level))
-        //{
-        //    Debug.Log("Base Can");
-        //}
-        //if (Vector3.Distance(Player.transform.position, Enemy.transform.position) <= Range)
-        //{
-        //    Debug.Log("Range Can");
-        //}
+        if (base.CanUseSkill(Enemy, Player, Level))
+        {
+            Debug.Log("Base Can");
+        }
+        if (Vector3.Distance(Player.transform.position, Enemy.transform.position) <= Range)
+        {
+            Debug.Log("Range Can");
+        }
         //if (HasLineOfSightTo(Enemy, Player.transform))
         //{
         //    Debug.Log("LOS Can");

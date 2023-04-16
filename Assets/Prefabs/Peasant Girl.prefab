@@ -16269,6 +16269,8 @@ MonoBehaviour:
   Health: 500
   Skills:
   - {fileID: 11400000, guid: 154d7af07f227f24598dbc1b392bcfdb, type: 2}
+  bossHealthUI: {fileID: 0}
+  bossHealthSlider: {fileID: 0}
 --- !u!1 &6999502146601453207
 GameObject:
   m_ObjectHideFlags: 0

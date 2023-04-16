@@ -8,6 +8,7 @@ using TMPro;
 public class QuestManager : MonoBehaviour
 {
     GameObject player;
+    GameObject BossHealthUI;
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
@@ -64,6 +65,9 @@ public class QuestManager : MonoBehaviour
         playerHealth = player.GetComponent<PlayerHealth>();
         playerMovement = player.GetComponent<PlayerMovement>();
         playerShooting = player.GetComponentInChildren<PlayerShooting>();
+        BossHealthUI = GameObject.Find("BossHealthUI");
+        BossHealthUI.SetActive(false);
+        
     }
 
     public void StartQuest()
@@ -74,6 +78,11 @@ public class QuestManager : MonoBehaviour
 
         // Start first quest
         currentActiveQuest = questList[currentQuestIdx];
+
+        if (currentQuestIdx == 3)
+        {
+            BossHealthUI.SetActive(true);
+        }
 
         if (currentQuestIdx != 0)
         {

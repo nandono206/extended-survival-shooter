@@ -11,9 +11,12 @@ public class EnemyHealth : MonoBehaviour
     public int scoreValue = 10;
     public AudioClip deathClip;
     private Coroutine BurnCoroutine;
-
+    
     [SerializeField]
     private bool _IsBurning;
+
+  //
+
     public bool IsBurning { get => _IsBurning; set => _IsBurning = value; }
 
     public event DeathEvent OnDeath;
@@ -72,6 +75,10 @@ public class EnemyHealth : MonoBehaviour
             TakeDamageBurn(damagePerTick);
         }
     }
+    //public void NotifyDamaged(int damage)
+    //{
+    //    Boss.OnNotifyDamage(damage);
+    //}
 
     public void TakeDamageBurn(int Damage)
     {

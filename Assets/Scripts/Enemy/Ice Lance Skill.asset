@@ -15,7 +15,7 @@ MonoBehaviour:
   Cooldown: 1
   Damage: 10
   UnlockLevel: 1
-  IsActivating: 1
+  IsActivating: 0
   UseTime: 34.169594
   LancesToShoot: 5
   Delay: 0.25
