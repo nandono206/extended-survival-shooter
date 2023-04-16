@@ -4,13 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
-    public PlayerHealth playerHealth;       
-    public float restartDelay = 5f;  
-    public Button retryButton;        
+    public PlayerHealth playerHealth;
+    public float restartDelay = 5f;
+    public Button retryButton;
 
 
-    Animator anim;                          
-    float restartTimer;                    
+    Animator anim;
+    float restartTimer;
 
 
     void Awake()
@@ -18,7 +18,7 @@ public class GameOverManager : MonoBehaviour
         retryButton.onClick.RemoveAllListeners();
         retryButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("Level_01", LoadSceneMode.Single);
         });
         anim = GetComponent<Animator>();
     }

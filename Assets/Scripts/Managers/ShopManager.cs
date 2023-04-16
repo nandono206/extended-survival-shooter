@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    [Header ("Shop Elements")]
+    [Header("Shop Elements")]
     [SerializeField] Transform shopMenu;
     [SerializeField] Transform shopItemsContainer;
     [SerializeField] GameObject shopItemPrefab;
     [SerializeField] ShopItemDatabase shopItemDatabase;
     [SerializeField] float itemSpacing = .5f;
 
-    [Header ("Shop Open/Close Events")]
+    [Header("Shop Open/Close Events")]
     [SerializeField] GameObject shopPanel;
     [SerializeField] GameObject shopCue;
     [SerializeField] Button closeButton;
     [SerializeField] Button shopButton;
-    
+
     GameObject player;
     PlayerHealth playerHealth;
     PlayerMovement playerMovement;
@@ -33,11 +33,11 @@ public class ShopManager : MonoBehaviour
     void Awake()
     {
         // Peroleh game object dengan tag "Player"
-        player = GameObject.FindGameObjectWithTag ("Player");
-        playerHealth = player.GetComponent <PlayerHealth> ();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = player.GetComponent<PlayerHealth>();
         playerMovement = player.GetComponent<PlayerMovement>();
         playerShooting = player.GetComponentInChildren<PlayerShooting>();
-        
+
         spawnerObj = GameObject.FindGameObjectWithTag("Spawner");
         spawner = spawnerObj.GetComponent<Spawner>();
     }
@@ -85,10 +85,59 @@ public class ShopManager : MonoBehaviour
             {
                 uiItem.SetItemAsPurchased();
                 SetAvailableItem(item.name);
-            } else
+            }
+            else
             {
                 uiItem.SetItemPrice(item.price);
                 uiItem.OnItemPurchase(i, OnItemPurchased);
+            }
+
+            // For saved file controller
+            if (item.name == "Shotgun" && PlayerShooting.isShotgunAvailable)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+            
+            else if (item.name == "Bow" && PlayerShooting.isBowAvailable)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+            
+            else if (item.name == "Sword" && PlayerShooting.isSwordAvailable)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+
+            else if (item.name == "Gun Upgrade" && PlayerShooting.isGunUpgraded)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+            
+            else if (item.name == "Shotgun Upgrade" && PlayerShooting.isShotgunUpgraded)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+
+            else if (item.name == "Bow Upgrade" && PlayerShooting.isBowUpgraded)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+            
+            else if (item.name == "Sword Upgrade" && PlayerShooting.isSwordUpgraded)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+            
+            else if ((item.name == "Fox" || item.name == "Dragon" || item.name == "Bear") && spawner.petIndex != -1)
+            {
+                uiItem.SetItemAsPurchased();
             }
 
             shopItemsContainer.GetComponent<RectTransform>().sizeDelta = Vector2.left * ((itemWidth + itemSpacing) * shopItemDatabase.ShopItemCount + itemSpacing);
@@ -107,7 +156,13 @@ public class ShopManager : MonoBehaviour
             uiItem.SetItemAsPurchased();
 
             SetAvailableItem(item.name);
-        } else
+
+            if (spawner.petIndex != -1)
+            {
+                RegenerateShop();
+            }
+        }
+        else
         {
             uiItem.SetItemPrice(item.price);
             uiItem.OnItemPurchase(index, OnItemPurchased);
@@ -124,23 +179,48 @@ public class ShopManager : MonoBehaviour
         return (price <= CoinManager.coins);
     }
 
-    void SetAvailableItem(string name) {
+    void SetAvailableItem(string name)
+    {
         if (name == "Shotgun")
         {
             PlayerShooting.isShotgunAvailable = true;
-        } else if (name == "Bow")
+        }
+        else if (name == "Bow")
         {
             PlayerShooting.isBowAvailable = true;
-        } else if (name == "Sword")
+        }
+        else if (name == "Sword")
         {
             PlayerShooting.isSwordAvailable = true;
-        } else if (name == "Fox")
+        }
+        else if (name == "Gun Upgrade")
+        {
+            PlayerShooting.isGunUpgraded = true;
+        }
+        
+        else if (name == "Shotgun Upgrade")
+        {
+            PlayerShooting.isShotgunUpgraded = true;
+        }
+
+        else if (name == "Bow Upgrade")
+        {
+            PlayerShooting.isBowUpgraded = true;
+        }
+        
+        else if (name == "Sword Upgrade")
+        {
+            PlayerShooting.isSwordUpgraded = true;
+        }
+        else if (name == "Fox")
         {
             spawner.SpawnObject(0);
-        } else if (name == "Dragon")
+        }
+        else if (name == "Dragon")
         {
             spawner.SpawnObject(1);
-        } else if (name == "Bear")
+        }
+        else if (name == "Bear")
         {
             spawner.SpawnObject(2);
         }
@@ -149,27 +229,28 @@ public class ShopManager : MonoBehaviour
     void Update()
     {
         // Jika playerInRange, buka toko
-        if (playerInRange && playerHealth.currentHealth > 0 && isShopAvailable) 
+        if (playerInRange && playerHealth.currentHealth > 0 && isShopAvailable)
         {
             if (!shopShown)
             {
                 ShowShopCue();
             }
 
-            if (Input.GetKeyDown(KeyCode.X) && !shopShown) 
+            if (Input.GetKeyDown(KeyCode.X) && !shopShown)
             {
                 shopShown = true;
                 HideShopCue();
                 ShowShopPanel();
             }
-            
-            if (Input.GetKeyDown(KeyCode.Escape) && shopShown) 
+
+            if (Input.GetKeyDown(KeyCode.Escape) && shopShown)
             {
                 shopShown = false;
                 HideShopCue();
                 HideShopPanel();
             }
-        } else
+        }
+        else
         {
             HideShopCue();
             HideShopPanel();
@@ -184,7 +265,7 @@ public class ShopManager : MonoBehaviour
         playerMovement.enabled = false;
         playerShooting.enabled = false;
     }
-    
+
     // Hide shop UI
     void HideShopPanel()
     {
@@ -192,13 +273,13 @@ public class ShopManager : MonoBehaviour
         playerMovement.enabled = true;
         playerShooting.enabled = true;
     }
-    
+
     // Show shop Cue
     void ShowShopCue()
     {
         shopCue.SetActive(true);
     }
-    
+
     // Hide shop Cue
     void HideShopCue()
     {
@@ -206,21 +287,26 @@ public class ShopManager : MonoBehaviour
     }
 
     // Jika sesuatu collide dengan enemy
-    void OnTriggerEnter (Collider other)
+    void OnTriggerEnter(Collider other)
     {
         // Jika player, playerinrange true
-        if(other.gameObject == player && other.isTrigger == false)
+        if (other.gameObject == player && other.isTrigger == false)
         {
             playerInRange = true;
         }
     }
 
     // Kebalikan OnTriggerEnter
-    void OnTriggerExit (Collider other)
+    void OnTriggerExit(Collider other)
     {
-        if(other.gameObject == player)
+        if (other.gameObject == player)
         {
             playerInRange = false;
         }
+    }
+
+    public void RegenerateShop()
+    {
+        GenerateShopItemsUI();
     }
 }

@@ -16200,7 +16200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Boss
-  startingHealth: 10000
+  startingHealth: 5000
   currentHealth: 0
   sinkSpeed: 2.5
   scoreValue: 10

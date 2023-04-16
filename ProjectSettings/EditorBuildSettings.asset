@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ending_Scene/Ending_Scene.unity
     guid: f1ed7c68b89fe144fa022d376c15e0b8
+  - enabled: 1
+    path: Assets/Scenes/Scene_Tambahan/Scene_Tambahan.unity
+    guid: 8a58141f7e1584f41b83f8f68eaefb6f
   m_configObjects: {}

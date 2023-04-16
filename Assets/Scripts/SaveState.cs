@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class SaveStateOld : ScriptableObject
-{    // string playerName;
+{
     public string saveTitle;
     public int questIndex;
     public float score;

@@ -12,6 +12,8 @@ public class QuestManager : MonoBehaviour
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
     bool started = false;
+    [SerializeField]
+    private SaveManager SaveManager;
 
     [Header("Quest Configuration")]
     public List<Quest> questList;
@@ -53,6 +55,7 @@ public class QuestManager : MonoBehaviour
     public TMP_Text questCountdownTime;
     bool questRewardShown = false;
     bool nextQuestShown;
+    bool startedSavedGame = false;
     public Button closeButton;
 
     void Awake()
@@ -67,10 +70,13 @@ public class QuestManager : MonoBehaviour
     {
         started = true;
         closeButton.onClick.RemoveAllListeners();
-        closeButton.onClick.AddListener(() =>
-        {
-            HideQuestRewardUI();
+        closeButton.onClick.AddListener(onCloseButton);
 
+        // Start first quest
+        currentActiveQuest = questList[currentQuestIdx];
+
+        if (currentQuestIdx != 0)
+        {
             ShopManager.isShopAvailable = true;
             questRewardShown = false;
             nextQuestShown = true;
@@ -89,14 +95,15 @@ public class QuestManager : MonoBehaviour
             questCountdownIndex.text = "Quest " + (currentQuestIdx + 1) + " starting in:";
 
             timeLeftUntilNextQuest = 15f;
-        });
 
-        // Start first quest
-        currentActiveQuest = questList[currentQuestIdx];
-
-        // Show quest UI
-        // If key is clicked, start next quest
-        GenerateQuest();
+            startedSavedGame = true;
+        }
+        else
+        {
+            // Show quest UI
+            // If key is clicked, start next quest
+            GenerateQuest();
+        }
     }
 
     void Update()
@@ -105,7 +112,7 @@ public class QuestManager : MonoBehaviour
         {
             return;
         }
-        // Debug.Log(currentActiveQuest);
+        
         if (timeLeftUntilNextQuest > 0f)
         {
             questCountdownUI.SetActive(true);
@@ -129,6 +136,10 @@ public class QuestManager : MonoBehaviour
             isPreviousQuestCompleted = false;
         }
         if (nextQuestShown)
+        {
+            isPreviousQuestCompleted = false;
+        }
+        if (startedSavedGame)
         {
             isPreviousQuestCompleted = false;
         }
@@ -179,6 +190,7 @@ public class QuestManager : MonoBehaviour
             GenerateQuest();
 
             nextQuestShown = false;
+            startedSavedGame = false;
         }
     }
 
@@ -225,7 +237,7 @@ public class QuestManager : MonoBehaviour
 
     bool questCompleted()
     {
-        if (currentQuestIdx == 3 )
+        if (currentQuestIdx == 3)
         {
             return currentBossKilled > 0;
         }
@@ -237,7 +249,7 @@ public class QuestManager : MonoBehaviour
             currentHellephantKilled == currentHellephantSpawnNumber
         );
         }
-        
+
     }
 
     public static void AddEnemyKilled(string enemyName)
@@ -348,7 +360,7 @@ public class QuestManager : MonoBehaviour
         Instantiate(Boss, bossSpawnPoints[spawnPointIndex].position, bossSpawnPoints[spawnPointIndex].rotation);
         currentBossSpawned += 1;
 
-       
+
     }
 
     void SaveToScoreboard()
@@ -360,5 +372,47 @@ public class QuestManager : MonoBehaviour
     void RedirectToEnding()
     {
         SceneManager.LoadScene("Ending_Scene", LoadSceneMode.Single);
+    }
+
+    public void onCloseButton()
+    {
+        if (currentQuestIdx == 3)
+        {
+            SaveManager.goToCutScene();
+        }
+        else
+        {
+            HideQuestRewardUI();
+
+            ShopManager.isShopAvailable = true;
+            questRewardShown = false;
+            nextQuestShown = true;
+
+            if (currentQuestIdx >= questList.Count)
+            {
+                Debug.Log("Final boss is defeated!");
+                SaveToScoreboard();
+
+                RedirectToEnding();
+
+                return;
+            }
+
+            currentActiveQuest = questList[currentQuestIdx];
+            questCountdownIndex.text = "Quest " + (currentQuestIdx + 1) + " starting in:";
+
+            timeLeftUntilNextQuest = 15f;
+        }
+    }
+
+    public void OnLoadCloseButton()
+    {
+        StartCoroutine(LoadSaveSceneAsync());
+    }
+
+    IEnumerator LoadSaveSceneAsync()
+    {
+        yield return null; // Wait one frame before loading the scene
+        SceneManager.LoadScene("Main_Menu", LoadSceneMode.Single);
     }
 }

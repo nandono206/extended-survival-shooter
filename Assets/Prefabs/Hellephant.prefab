@@ -5323,7 +5323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Hellephant
-  startingHealth: 100
+  startingHealth: 250
   currentHealth: 0
   sinkSpeed: 2.5
   scoreValue: 10
