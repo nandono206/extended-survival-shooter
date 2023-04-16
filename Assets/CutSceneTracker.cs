@@ -18,6 +18,7 @@ public class CutSceneTracker : MonoBehaviour
     public bool isSwordUpgraded;
     public bool isBowUpgraded;
     public int petIndex;
+    public int petHealth;
     // Start is called before the first frame update
     void Start()
     {
