@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour, IDamageable
 {
@@ -14,6 +15,8 @@ public class Boss : MonoBehaviour, IDamageable
     public SkillScriptableObject[] Skills;
     public delegate void DeathEvent(Boss enemy);
     public DeathEvent OnDie;
+    public GameObject bossHealthUI;
+    public Slider bossHealthSlider;
 
     private Coroutine LookCoroutine;
     public const string ATTACK_TRIGGER = "Attack";
@@ -21,12 +24,16 @@ public class Boss : MonoBehaviour, IDamageable
     private void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        bossHealthUI = GameObject.Find("BossHealthUI");
+        bossHealthSlider = GameObject.Find("BossHealthSlider").GetComponent<Slider>();
         AttackRadius.OnAttack += OnAttack;
         for (int i = 0; i < Skills.Length; i++)
         {
             Skills[i].UseTime = 0f;
             Skills[i].IsActivating = false;
         }
+        bossHealthUI.SetActive(true);
+        
     }
 
     private void Update()
@@ -44,6 +51,8 @@ public class Boss : MonoBehaviour, IDamageable
                 //Debug.Log("Cannott");
             }
         }
+        bossHealthSlider.value = gameObject.GetComponent<EnemyHealth>().currentHealth;
+        
     }
 
     private void OnAttack(GameObject Target)
