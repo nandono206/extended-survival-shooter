@@ -20,6 +20,7 @@ public class SaveState
     public bool isSwordUpgraded;
     public bool isBowUpgraded;
     public int petIndex;
+    public int petHealth;
 }
 
 public class SaveManager : MonoBehaviour
@@ -80,6 +81,7 @@ public class SaveManager : MonoBehaviour
             PlayerShooting.isBowUpgraded = cutSceneTracker.isBowUpgraded;
             if (cutSceneTracker.petIndex != -1)
             {
+                Spawner.health = cutSceneTracker.petHealth;
                 Spawner.SpawnObject(cutSceneTracker.petIndex);
             }
             cutSceneTracker.isCutScene = false;
@@ -144,6 +146,7 @@ public class SaveManager : MonoBehaviour
         SaveSlots[slot].isSwordUpgraded = PlayerShooting.isSwordUpgraded;
         SaveSlots[slot].isBowUpgraded = PlayerShooting.isBowUpgraded;
         SaveSlots[slot].petIndex = Spawner.petIndex;
+        SaveSlots[slot].petHealth = Spawner.health;
         // to json, then save as proprietary file
         string json = JsonUtility.ToJson(SaveSlots[slot]);
         string path = Application.persistentDataPath + "/save" + slot + ".json";
@@ -172,6 +175,7 @@ public class SaveManager : MonoBehaviour
         PlayerShooting.isBowUpgraded = LoadSlots[slot].isBowUpgraded;
         if (LoadSlots[slot].petIndex != -1)
         {
+            Spawner.health = LoadSlots[slot].petHealth;
             Spawner.SpawnObject(LoadSlots[slot].petIndex);
         }
         // hide load slots panel
@@ -196,6 +200,7 @@ public class SaveManager : MonoBehaviour
         cutSceneTracker.isSwordUpgraded = PlayerShooting.isSwordUpgraded;
         cutSceneTracker.isBowUpgraded = PlayerShooting.isBowUpgraded;
         cutSceneTracker.petIndex = Spawner.petIndex;
+        cutSceneTracker.petHealth = Spawner.health;
         cutSceneTracker.isCutScene = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Scene_Tambahan");
     }

@@ -33,6 +33,8 @@ public class PlayButton : MonoBehaviour
     {
         yield return null; // Wait one frame before loading the scene
         SceneManager.LoadScene("OpeningScene", LoadSceneMode.Single);
+        AudioManager.Instance.MusicVolume(0);
+        
     }
 
     public void OnClickLoad()
