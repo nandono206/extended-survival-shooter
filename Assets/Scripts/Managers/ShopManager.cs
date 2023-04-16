@@ -110,6 +110,30 @@ public class ShopManager : MonoBehaviour
                 uiItem.SetItemAsPurchased();
                 SetAvailableItem(item.name);
             }
+
+            else if (item.name == "Gun Upgrade" && PlayerShooting.isGunUpgraded)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+            
+            else if (item.name == "Shotgun Upgrade" && PlayerShooting.isShotgunUpgraded)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+
+            else if (item.name == "Bow Upgrade" && PlayerShooting.isBowUpgraded)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
+            
+            else if (item.name == "Sword Upgrade" && PlayerShooting.isSwordUpgraded)
+            {
+                uiItem.SetItemAsPurchased();
+                SetAvailableItem(item.name);
+            }
             
             else if ((item.name == "Fox" || item.name == "Dragon" || item.name == "Bear") && spawner.petIndex != -1)
             {
@@ -168,6 +192,25 @@ public class ShopManager : MonoBehaviour
         else if (name == "Sword")
         {
             PlayerShooting.isSwordAvailable = true;
+        }
+        else if (name == "Gun Upgrade")
+        {
+            PlayerShooting.isGunUpgraded = true;
+        }
+        
+        else if (name == "Shotgun Upgrade")
+        {
+            PlayerShooting.isShotgunUpgraded = true;
+        }
+
+        else if (name == "Bow Upgrade")
+        {
+            PlayerShooting.isBowUpgraded = true;
+        }
+        
+        else if (name == "Sword Upgrade")
+        {
+            PlayerShooting.isSwordUpgraded = true;
         }
         else if (name == "Fox")
         {

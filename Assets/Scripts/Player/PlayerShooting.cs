@@ -20,6 +20,10 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     public static bool isShotgunAvailable = false;
     public static bool isSwordAvailable = false;
     public static bool isBowAvailable = false;
+    public static bool isGunUpgraded = false;
+    public static bool isShotgunUpgraded = false;
+    public static bool isSwordUpgraded = false;
+    public static bool isBowUpgraded = false;
     public bool areOtherWeaponsActive = true;
     public GameObject arrowPrefab;
 
@@ -104,20 +108,21 @@ public class PlayerShooting : MonoBehaviour, PetObserver
         timer += Time.deltaTime;
         if (pet != null && pet.CompareTag("Bear"))
         {
-            //Debug.Log("Dragon Exists");
             damagePerGunShot = 40;
             damagePerShotgunShot = 20;
             damagePerSwordHit = 90;
+            arrowPrefab.GetComponent<ArrowScript>().damage = 70;
 
             gunLine.material.color = Color.red;
         }
 
         else
         {
-            //Debug.Log("Dragon Exists");
             damagePerGunShot = 20;
             damagePerShotgunShot = 10;
             damagePerSwordHit = 50;
+            arrowPrefab.GetComponent<ArrowScript>().damage = 35;
+
             gunLine.material.color = Color.yellow;
         }
 
@@ -259,6 +264,10 @@ public class PlayerShooting : MonoBehaviour, PetObserver
                 {
                     enemyHealth.TakeDamage(9999999, shootHit.point);
                 }
+                else if (isGunUpgraded)
+                {
+                    enemyHealth.TakeDamage((int) (damagePerGunShot * 1.5f), shootHit.point);
+                }
                 else
                 {
                     enemyHealth.TakeDamage(damagePerGunShot, shootHit.point);
@@ -297,6 +306,10 @@ public class PlayerShooting : MonoBehaviour, PetObserver
                     {
                         enemyHealth.TakeDamage(9999999, hit.point);
                     }
+                    else if (isShotgunUpgraded)
+                    {
+                        enemyHealth.TakeDamage((int) (damagePerShotgunShot * damageMultiplier * 1.5f), shootHit.point);
+                    }
                     else
                     {
                         enemyHealth.TakeDamage((int)(damagePerShotgunShot * damageMultiplier), hit.point);
@@ -327,6 +340,10 @@ public class PlayerShooting : MonoBehaviour, PetObserver
                 {
                     enemyHealth.TakeDamage(9999999, hitCollider.transform.position);
                 }
+                else if (isSwordUpgraded)
+                {
+                    enemyHealth.TakeDamage((int) (damagePerSwordHit * 1.5f), shootHit.point);
+                }
                 else
                 {
                     enemyHealth.TakeDamage(damagePerSwordHit, hitCollider.transform.position);
@@ -339,6 +356,14 @@ public class PlayerShooting : MonoBehaviour, PetObserver
     void ShootBow()
     {
         isBowCharging = false;
+        if (isOneHitKill)
+        {
+            arrowPrefab.GetComponent<ArrowScript>().damage = 9999999;
+        }
+        else if (isBowUpgraded)
+        {
+            arrowPrefab.GetComponent<ArrowScript>().damage = (int) (arrowPrefab.GetComponent<ArrowScript>().damage * 1.5f);
+        }
         arrow = Instantiate(arrowPrefab, transform.position, transform.rotation * Quaternion.Euler(0, 90, -100)) as GameObject;
         arrow.GetComponent<Rigidbody>().AddForce(transform.forward * currentBowPower, ForceMode.Impulse);
         currentBowPower = 0f;

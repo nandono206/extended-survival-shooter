@@ -15,6 +15,10 @@ public class SaveState
     public bool isShotgunAvailable;
     public bool isSwordAvailable;
     public bool isBowAvailable;
+    public bool isGunUpgraded;
+    public bool isShotgunUpgraded;
+    public bool isSwordUpgraded;
+    public bool isBowUpgraded;
     public int petIndex;
 }
 
@@ -60,6 +64,10 @@ public class SaveManager : MonoBehaviour
             PlayerShooting.isShotgunAvailable = cutSceneTracker.isShotgunAvailable;
             PlayerShooting.isSwordAvailable = cutSceneTracker.isSwordAvailable;
             PlayerShooting.isBowAvailable = cutSceneTracker.isBowAvailable;
+            PlayerShooting.isGunUpgraded = cutSceneTracker.isGunUpgraded;
+            PlayerShooting.isShotgunUpgraded = cutSceneTracker.isShotgunUpgraded;
+            PlayerShooting.isSwordUpgraded = cutSceneTracker.isSwordUpgraded;
+            PlayerShooting.isBowUpgraded = cutSceneTracker.isBowUpgraded;
             if (cutSceneTracker.petIndex != -1)
             {
                 Spawner.SpawnObject(cutSceneTracker.petIndex);
@@ -109,6 +117,10 @@ public class SaveManager : MonoBehaviour
         SaveSlots[slot].isShotgunAvailable = PlayerShooting.isShotgunAvailable;
         SaveSlots[slot].isSwordAvailable = PlayerShooting.isSwordAvailable;
         SaveSlots[slot].isBowAvailable = PlayerShooting.isBowAvailable;
+        SaveSlots[slot].isGunUpgraded = PlayerShooting.isGunUpgraded;
+        SaveSlots[slot].isShotgunUpgraded = PlayerShooting.isShotgunUpgraded;
+        SaveSlots[slot].isSwordUpgraded = PlayerShooting.isSwordUpgraded;
+        SaveSlots[slot].isBowUpgraded = PlayerShooting.isBowUpgraded;
         SaveSlots[slot].petIndex = Spawner.petIndex;
         // to json, then save as proprietary file
         string json = JsonUtility.ToJson(SaveSlots[slot]);
@@ -132,6 +144,10 @@ public class SaveManager : MonoBehaviour
         PlayerShooting.isShotgunAvailable = LoadSlots[slot].isShotgunAvailable;
         PlayerShooting.isSwordAvailable = LoadSlots[slot].isSwordAvailable;
         PlayerShooting.isBowAvailable = LoadSlots[slot].isBowAvailable;
+        PlayerShooting.isGunUpgraded = LoadSlots[slot].isGunUpgraded;
+        PlayerShooting.isShotgunUpgraded = LoadSlots[slot].isShotgunUpgraded;
+        PlayerShooting.isSwordUpgraded = LoadSlots[slot].isSwordUpgraded;
+        PlayerShooting.isBowUpgraded = LoadSlots[slot].isBowUpgraded;
         if (LoadSlots[slot].petIndex != -1)
         {
             Spawner.SpawnObject(LoadSlots[slot].petIndex);
@@ -153,6 +169,10 @@ public class SaveManager : MonoBehaviour
         cutSceneTracker.isShotgunAvailable = PlayerShooting.isShotgunAvailable;
         cutSceneTracker.isSwordAvailable = PlayerShooting.isSwordAvailable;
         cutSceneTracker.isBowAvailable = PlayerShooting.isBowAvailable;
+        cutSceneTracker.isGunUpgraded = PlayerShooting.isGunUpgraded;
+        cutSceneTracker.isShotgunUpgraded = PlayerShooting.isShotgunUpgraded;
+        cutSceneTracker.isSwordUpgraded = PlayerShooting.isSwordUpgraded;
+        cutSceneTracker.isBowUpgraded = PlayerShooting.isBowUpgraded;
         cutSceneTracker.petIndex = Spawner.petIndex;
         cutSceneTracker.isCutScene = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Scene_Tambahan");

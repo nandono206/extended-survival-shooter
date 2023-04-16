@@ -43,3 +43,23 @@ MonoBehaviour:
     type: Pet (Buff)
     price: 3000
     isPurchased: 0
+  - image: {fileID: 21300000, guid: 1d88e647722ecd548b757f3916df11d2, type: 3}
+    name: Gun Upgrade
+    type: Weapon Upgrade)
+    price: 1000
+    isPurchased: 0
+  - image: {fileID: 21300000, guid: 295122228150eeb449cebd471f9d556b, type: 3}
+    name: Bow Upgrade
+    type: Weapon Upgrade)
+    price: 1000
+    isPurchased: 0
+  - image: {fileID: 21300000, guid: 0babdc94e97d5a84fb773fd9d7972e81, type: 3}
+    name: Shotgun Upgrade
+    type: Weapon Upgrade)
+    price: 1000
+    isPurchased: 0
+  - image: {fileID: 21300000, guid: 930bda2e58e17934597f3bcaa8f876a7, type: 3}
+    name: Sword Upgrade
+    type: Weapon Upgrade)
+    price: 1000
+    isPurchased: 0
